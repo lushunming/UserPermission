@@ -8,8 +8,13 @@ package com.lu.common;
  *
  */
 public class CommonConstant {
-
-	
-	
+	/** 保存成功 */
+	public static final Integer SAVE_SUCCESS = 0;
+	/** 保存出错 */
+	public static final Integer SAVE_ERROR = 1;
+	/** 更新成功 */
+	public static final Integer UPDATE_SUCCESS = 0;
+	/** 更新失败 */
+	public static final Integer UPDATE_ERROR = 0;
 
 }

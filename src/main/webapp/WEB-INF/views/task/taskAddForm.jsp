@@ -8,62 +8,27 @@
 <title>任务管理</title>
 </head>
 <body>
-	<div class="container">
-		<form class="form-horizontal">
+	<div class="container-fluid">
+		<form class="form-horizontal margin">
 			<div class="form-group">
-				<label class="col-sm-2 control-label">账号：</label>
-				<div class="col-sm-8 padding-top padding-left-lg" data-bind="text:loginName">admin</div>
-			</div>
-			<div class="form-group">
-				<span class="col-danger font-size-large line-height">*</span> <label class="col-sm-2  control-label">姓名：</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" placeholder="姓名" name="username" data-bind="value:userName,event:{blur:checkUserName}">
-				</div>
-				<div class="bg-danger" id="username_msg" style="display: none;">必填！</div>
-			</div>
-			<div class="form-group" id="sex">
-				<label class="col-sm-2  control-label">性别：</label>
-				<div class="col-sm-8">
-					<label class="radio-inline col-sm-2"> <input type="radio" name="sex" value="1" data-bind="checked:sex">男
-					</label> <label class="radio-inline col-sm-2"> <input type="radio" name="sex" value="0" data-bind="checked:sex">女
-					</label>
+				 <label class="col-xs-2  control-label">名称：<span class="col-danger">*</span></label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" placeholder="名称" name="name">
 				</div>
 			</div>
 			<div class="form-group">
-				<span class="col-danger font-size-large line-height">*</span> <label class="col-sm-2 control-label">邮箱：</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" placeholder="邮箱" name="email" data-bind="value:email,event:{blur:checkEmail}">
-				</div>
-				<div class="bg-danger" id="email_msg" style="display: none;">必填！</div>
-			</div>
-			<div class="form-group">
-				<span class="col-danger font-size-large line-height">*</span> <label class="col-sm-2 control-label">手机号：</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" placeholder="通过认证的手机号可以直接登录平台" name="mobile" data-bind="value:mobile,event:{blur:checkMobile}">
-				</div>
-				<div class="bg-danger" id="mobile_msg" style="display: none;">必填！</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">个人签名：</label>
-				<div class="col-sm-12 ">
-					<textarea rows="6" class="col-sm-10 padding" name="userText" id="userText" data-bind="value:userText,event:{blur:checkUserText}"></textarea>
-				</div>
-				<div class="bg-danger" id="userText_msg" style="display: none;">必填！</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-3">
-					<button type="button" class="btn btn-warning" data-bind="click:checkSubmit">确认修改</button>
-					<button type="button" class="btn btn-cancle col-sm-offset-3" data-bind="click:cancle">取消</button>
+				 <label class="col-xs-2  control-label">URL：<span class="col-danger ">*</span></label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" placeholder="URL" name="url">
 				</div>
 			</div>
 		</form>
-
 	</div>
 	<script type="text/javascript">
 		$(function() {
 			taskList.init();
 		});
-		var taskList = {
+		var taskAddForm = {
 			init : function() {
 				var t = this;
 				t.dataGrid.init();
