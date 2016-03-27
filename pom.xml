@@ -10,7 +10,7 @@
 		<servletapi.version>4.0.0-b01</servletapi.version>
 		<jspapi.version>2.0</jspapi.version>
 		<jstl.version>1.2</jstl.version>
-		<mybatis.version>3.1.0</mybatis.version>
+		<mybatis.version>3.2.0</mybatis.version>
 		<shiro.version>1.2.2</shiro.version>
 	</properties>
 	<dependencies>

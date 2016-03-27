@@ -25,7 +25,8 @@ public class TestController {
 		dto.setPassword("111111");
 		dto.setStatus(1);
 		Integer integer = userService.insertUser(dto);
-		logger.debug("integer"+integer);
+		logger.debug("integer_____"+integer);
+		System.out.println("id"+dto.getId());
 		return new ResultDto("ss", true, integer);
 
 	}
