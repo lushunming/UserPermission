@@ -8,24 +8,27 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<form class="form-horizontal margin">
+		<form class="row form-horizontal margin">
 			<div class="form-group">
-				 <label class="col-xs-2  control-label">名称：<span class="col-danger">*</span></label>
+				<label class="col-xs-2  control-label">名称：<span class="col-danger">*</span></label>
 				<div class="col-xs-8">
 					<input type="text" class="form-control" placeholder="名称" name="name">
 				</div>
 			</div>
 			<div class="form-group">
-				 <label class="col-xs-2  control-label">URL：<span class="col-danger ">*</span></label>
+				<label class="col-xs-2  control-label">URL：<span class="col-danger ">*</span></label>
 				<div class="col-xs-8">
 					<input type="text" class="form-control" placeholder="URL" name="url">
 				</div>
+			</div>
+			<div class="form-group ">
+				<a class="btn btn-success col-xs-offset-4 ">保存</a>
+				<a class="btn btn-default">取消</a>
 			</div>
 		</form>
 	</div>
 	<script type="text/javascript">
 		$(function() {
-			taskList.init();
 		});
 		var taskAddForm = {
 			init : function() {

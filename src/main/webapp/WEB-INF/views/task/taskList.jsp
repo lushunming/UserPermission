@@ -7,7 +7,7 @@
 
 <title>任务管理</title>
 </head>
-<body class="easyui-layout"  data-options="fit:true,border:false"  style="width:100%;height:100%;">
+<body class="easyui-layout" data-options="fit:true,border:false" style="width: 100%; height: 100%;">
 	<div data-options="region:'center',fit:true" style="overflow: hidden;">
 		<table id="table" data-options="fit:true,border:false"></table>
 	</div>
@@ -15,7 +15,7 @@
 	<div id="toolBar">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="taskList.operation('Add')">增加</a>
 	</div>
-
+	<div id="myWindow"></div>
 	<script type="text/javascript">
 		$(function() {
 			taskList.init();
@@ -25,9 +25,9 @@
 				var t = this;
 				t.dataGrid.init();
 			},
-			 operation :function(mode) {
+			operation : function(mode) {
 				if (mode == "Add") {
-					PageUtil.gotoPage('/task/add.html');
+					Util.openWin("新增任务", '/task/add.html');
 				} else if (mode == "Delete") {
 
 				} else if (mode = "Update") {
@@ -45,11 +45,11 @@
 						html += '&nbsp;<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>'
 						return html;
 					};
-					
+
 					var option = {
 						id : "#table",
 						url : '/task/querylist',
-						height:$("#body").height(),
+						height : $("#body").height(),
 						columns : [ [ {
 							field : 'ck',
 							title : 'ck',

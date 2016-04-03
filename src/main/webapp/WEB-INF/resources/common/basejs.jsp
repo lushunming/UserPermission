@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/resources/js/easyui/jquery.easyui.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/resources/js/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
 <!-- bootstrap -->
-<!--  <link rel="stylesheet"   href="/resources/js/bootstrap-3.3.5/dist/css/bootstrap.css" >  -->
+ <link rel="stylesheet"   href="/resources/js/bootstrap-3.3.5/dist/css/bootstrap.css" >  
 <!-- layer弹出框插件 -->
 <script type="text/javascript" src="/resources/js/layer-v2.2/layer/layer.js" charset="utf-8"></script>
 <!-- jqueryvalidate -->
@@ -20,5 +20,5 @@
 <script type="text/javascript" src="/resources/js/jquery.form.min.js" charset="utf-8"></script>
 
 <script type="text/javascript" src="/resources/js/custom/DataGrid.js" charset="utf-8"></script>
-<script type="text/javascript" src="/resources/js/custom/PageUtil.js" charset="utf-8"></script>
+<script type="text/javascript" src="/resources/js/custom/Util.js" charset="utf-8"></script>
 
