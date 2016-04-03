@@ -7,13 +7,16 @@ public class ResultDto implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8026654920811799895L;
+
+	public ResultDto() {
+	}
+
 	public ResultDto(String msg, boolean success, Integer code) {
 		super();
 		this.msg = msg;
 		this.success = success;
 		this.code = code;
 	}
-
 
 	/** 返回的消息 */
 	private String msg;

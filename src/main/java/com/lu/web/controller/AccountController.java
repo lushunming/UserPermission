@@ -1,10 +1,18 @@
 package com.lu.web.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lu.common.CommonConstant;
 import com.lu.dto.ResultDto;
 
 /**
@@ -26,9 +34,9 @@ public class AccountController {
 	 * 
 	 * @return 登录界面
 	 */
-	@RequestMapping("login/index")
+	@RequestMapping("/login.html")
 	public String gotoLogin() {
-		return "/account/login";
+		return "account/login";
 	}
 
 	/**
@@ -36,11 +44,38 @@ public class AccountController {
 	 * 
 	 * @return 操作的结果
 	 */
-	@RequestMapping("login")
+	@RequestMapping("/login")
 	@ResponseBody
-	public ResultDto login() {
-		return null;
+	public ResultDto login(String loginName, String password) {
+
+		if (StringUtils.isBlank(loginName)) {
+			logger.error("AccountController.login--用户名不能为空");
+			return new ResultDto("用户名不能为空", false, CommonConstant.LOGIN_FAILED);
+		}
+		if (StringUtils.isBlank(password)) {
+			logger.error("AccountController.login--密码不能为空");
+			return new ResultDto("密码不能为空", false, CommonConstant.LOGIN_FAILED);
+		}
+		UsernamePasswordToken token = new UsernamePasswordToken(loginName, password);
+		Subject user = SecurityUtils.getSubject();
+		Object object=user.getPrincipal();
+		token.setRememberMe(true);
+		try {
+			user.login(token);
+		} catch (UnknownAccountException e) {
+			logger.error("账号不存在：{}", e);
+			return new ResultDto("账号不存在", false, CommonConstant.LOGIN_FAILED);
+		} catch (DisabledAccountException e) {
+			logger.error("账号未启用：{}", e);
+			return new ResultDto("账号未启用", false, CommonConstant.LOGIN_FAILED);
+		} catch (IncorrectCredentialsException e) {
+			logger.error("密码错误：{}", e);
+			return new ResultDto("密码错误", false, CommonConstant.LOGIN_FAILED);
+		} catch (RuntimeException e) {
+			logger.error("未知错误,请联系管理员：{}", e);
+			return new ResultDto("未知错误,请联系管理员", false, CommonConstant.LOGIN_FAILED);
+		}
+		return new ResultDto("登录成功", true, CommonConstant.LOGIN_SUCCESS);
 
 	}
-
 }

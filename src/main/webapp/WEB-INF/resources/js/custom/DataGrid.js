@@ -6,9 +6,9 @@
  */
 var DataGrid = function(option) {
 	var defaultOption = {
-		fitColumns : true,
 		pagination : true,
 		rownumbers : true,
+		fit:true
 	};
 
 	var newOption = $.extend({}, defaultOption, option)

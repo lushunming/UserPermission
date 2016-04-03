@@ -57,17 +57,18 @@
 		<!-- 安全管理器 -->
 		<property name="securityManager" ref="securityManager" />
 		<!-- 默认的登陆访问url -->
-		<property name="loginUrl" value="/account/login" />
+		<property name="loginUrl" value="/account/login.html" />
 		<!-- 登陆成功后跳转的url -->
 		<property name="successUrl" value="/index" />
 		<!-- 没有权限跳转的url -->
 		<property name="unauthorizedUrl" value="/unauth" />
 		<property name="filterChainDefinitions">
 			<value>
-				<!-- /resources/** = anon 不需要认证
-				/account/login/index = anon
-				/** = authc 需要认证 -->
-				/** = anon
+				/resources/** = anon <!-- 不需要认证 -->
+				/account/login.html = anon
+				/account/login = anon
+				/** = authc <!-- 需要认证 -->
+				<!-- /** = anon -->
 			</value>
 		</property>
 	</bean>

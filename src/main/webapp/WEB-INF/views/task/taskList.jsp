@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,10 +7,9 @@
 
 <title>任务管理</title>
 </head>
-<body>
-
-	<div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'" style="padding: 10px">
-		<div id="table"></div>
+<body class="easyui-layout"  data-options="fit:true,border:false"  style="width:100%;height:100%;">
+	<div data-options="region:'center',fit:true" style="overflow: hidden;">
+		<table id="table" data-options="fit:true,border:false"></table>
 	</div>
 
 	<div id="toolBar">
@@ -50,6 +49,7 @@
 					var option = {
 						id : "#table",
 						url : '/task/querylist',
+						height:$("#body").height(),
 						columns : [ [ {
 							field : 'ck',
 							title : 'ck',

@@ -14,9 +14,21 @@ public class CommonConstant {
 	/** 保存出错 */
 	public static final Integer SAVE_ERROR = 1;
 	/** 更新成功 */
-	public static final Integer UPDATE_SUCCESS = 0;
+	public static final Integer UPDATE_SUCCESS = 2;
 	/** 更新失败 */
-	public static final Integer UPDATE_ERROR = 0;
+	public static final Integer UPDATE_ERROR = 3;
+	/** 查询成功 */
+	public static final Integer SELECT_SUCCESS = 4;
+	/** 查询失败 */
+	public static final Integer SELECT_ERROR = 5;
+	/** 删除成功 */
+	public static final Integer DELETE_SUCCESS = 6;
+	/** 删除失败 */
+	public static final Integer DELETE_ERROR = 7;
+	/** 登录失败 */
+	public static final Integer LOGIN_FAILED = 8;
+	/** 登录成功 */
+	public static final Integer LOGIN_SUCCESS = 9;
 
 	// ---------------------------操作结果码end-----------------------------------------
 	// ---------------------------用户状态start-----------------------------------------
@@ -27,4 +39,5 @@ public class CommonConstant {
 	/** 2审核未通过 */
 	public static final Integer STATUS_CHECK_NOPASS = 2;
 	// ---------------------------用户状态end-----------------------------------------
+
 }
