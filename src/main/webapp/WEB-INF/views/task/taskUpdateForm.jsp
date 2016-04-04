@@ -8,37 +8,39 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<form class="row form-horizontal margin" id="taskAddForm">
+		<form class="row form-horizontal margin" id="taskUpdateForm">
+			<input type="hidden" name="id" value="${task.id}">
 			<div class="form-group">
 				<label class="col-xs-2  control-label">名称：<span class="col-danger">*</span></label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" placeholder="名称" name="name">
+					<input type="text" class="form-control" placeholder="名称" name="name" value="${task.name}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-xs-2  control-label">URL：<span class="col-danger ">*</span></label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" placeholder="URL" name="url">
+					<input type="text" class="form-control" placeholder="URL" name="url" value="${task.url}">
 				</div>
 			</div>
 		</form>
-		<button class="btn btn-success col-xs-offset-4" onclick="taskAddForm.submitForm()">提交</</button>
+		<button class="btn btn-success col-xs-offset-4" onclick="taskUpdateForm.submitForm()">提交</</button>
 		<button class="btn btn-default" onclick="callback()">取消</button>
+	</div>
 	</div>
 	<script type="text/javascript">
 		$(function() {
-			taskAddForm.init();
+			taskUpdateForm.init();
 		});
-		function callback(){
+		function callback() {
 			parent.callback();
-		};	
-		var taskAddForm = {
+		};
+		var taskUpdateForm = {
 			init : function() {
 				var t = this;
 				t.dataGrid.init();
 			},
 			submitForm : function() {
-				$("#taskAddForm").submit();
+				$("#taskUpdateForm").submit();
 				return false;
 			},
 			dataGrid : {
@@ -46,7 +48,7 @@
 					var option = {
 						target : '#output2', // target element(s) to be updated with server response 
 						success : callback,
-						url : "/task/save",
+						url : "/task/update",
 						type : "post",
 						dataType : "json"
 					// post-submit callback 
@@ -60,7 +62,7 @@
 					// $.ajax options can be used here too, for example: 
 					//timeout:   3000 
 					};
-					$("#taskAddForm").validate({
+					$("#taskUpdateForm").validate({
 						submitHandler : function(form) { //验证成功后执行的
 							var t = this;
 							$(form).ajaxSubmit(option);

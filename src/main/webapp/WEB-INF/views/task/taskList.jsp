@@ -13,7 +13,7 @@
 	</div>
 
 	<div id="toolBar">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="taskList.operation('Add')">增加</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="taskList.operation('Add')">增加</a> <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="taskList.operation('Delete')">删除</a> <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="taskList.operation('Update')">更新</a> <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="taskList.operation('View')">查看</a>
 	</div>
 	<div id="myWindow"></div>
 	<script type="text/javascript">
@@ -31,14 +31,17 @@
 				t.dataGrid.init();
 			},
 			operation : function(mode) {
-				if (mode == "Add") {
-					Util.openWin("新增任务", '/task/add.html');
-				} else if (mode == "Delete") {
+				var row = $('#table').datagrid('getSelected');
+				if (row) {
+					if (mode == "Add") {
+						Util.openWin("新增任务", '/task/add.html');
+					} else if (mode == "Delete") {
 
-				} else if (mode = "Update") {
-
-				} else if (mode == "View") {
-
+					} else if (mode == "Update") {
+						Util.openWin("更新任务", '/task/update/' + row.id + '.html');
+					} else if (mode == "View") {
+						Util.openWin("查看任务", "/task/view/" + row.id + ".html");
+					}
 				}
 
 			},
@@ -48,7 +51,7 @@
 					var t = this;
 					var operationFormatter = function() {
 						var html = '';
-						html += '<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>'
+						html += '<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="taskList.operation(\'Update\')">修改</a>'
 						html += '&nbsp;<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>'
 						return html;
 					};
@@ -70,17 +73,16 @@
 							field : 'url',
 							title : 'url',
 							width : 100
-						}, {
-							field : 'operation',
-							title : 'operation',
-							width : 100,
-							formatter : operationFormatter
-						} ] ],
+						} /* , {
+													field : 'operation',
+													title : 'operation',
+													width : 100,
+													formatter : operationFormatter
+												}  */] ],
 						toolbar : "#toolBar",//工具栏
 						queryParams : {},
 					};
-					t.instance = 
-		new DataGrid(option);
+					t.instance = new DataGrid(option);
 				}
 			},
 

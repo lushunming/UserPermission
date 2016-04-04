@@ -9,10 +9,12 @@ var DataGrid = function(option) {
 	var defaultOption = {
 		pagination : true,
 		rownumbers : true,
-		fit : true,
+		singleSelect : true,
+		fitColumns : true,
+		fit : true
 
 	};
-	
+
 	var newOption = $.extend({}, defaultOption, option);
 	self.reload = function() {
 		$(option.id).datagrid("reload");
