@@ -20,6 +20,11 @@
 		$(function() {
 			taskList.init();
 		});
+		//新增后的回调
+		function callback() {
+			taskList.dataGrid.instance.reload();
+			$("#myWindow").window("close");
+		};
 		var taskList = {
 			init : function() {
 				var t = this;
@@ -38,7 +43,9 @@
 
 			},
 			dataGrid : {
+				instance : '',
 				init : function() { //初始化datagrid
+					var t = this;
 					var operationFormatter = function() {
 						var html = '';
 						html += '<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>'
@@ -72,7 +79,8 @@
 						toolbar : "#toolBar",//工具栏
 						queryParams : {},
 					};
-					new DataGrid(option);
+					t.instance = 
+		new DataGrid(option);
 				}
 			},
 

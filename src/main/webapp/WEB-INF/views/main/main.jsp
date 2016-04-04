@@ -4,7 +4,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="/WEB-INF/resources/common/basejs.jsp"%>
-
 <title>任务管理</title>
 </head>
 
@@ -47,7 +46,9 @@
 	</div> -->
 <body class="easyui-layout" data-options="fit : true,border : false" >
 	<div region="north" border="true" split="true" style="overflow: hidden; height: 80px;">
-		<div class="top-bg"></div>
+		<div class="top-bg">
+				"${user.loginName}",${user.roles}
+		</div>
 	</div>
 	<div region="south" border="true" split="true" style="overflow: hidden; height: 40px;">
 		<div class="footer">footer</div>

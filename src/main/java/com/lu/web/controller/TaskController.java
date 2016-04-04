@@ -61,6 +61,7 @@ public class TaskController {
 	}
 
 	@RequestMapping("/save")
+	@ResponseBody
 	public ResultDto saveTask(TaskDto dto) {
 		ResultDto resultDto = null;
 		boolean success = taskService.saveTask(dto);

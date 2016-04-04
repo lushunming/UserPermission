@@ -5,7 +5,7 @@
 var Util = {
 	gotoPage : function(url, width, height) {
 		var _width = '700px';
-		var _height = '530px';
+		var _height = '400px';
 		if (width != undefined && width != "" && width != null) {
 			_width = width;
 		}
@@ -25,7 +25,8 @@ var Util = {
 			title : title,
 			width : width === undefined ? 600 : width,
 			height : height === undefined ? 400 : height,
-			content : '<iframe scrolling="yes" frameborder="0"  src="' + href + '" style="width:100%;height:98%;"></iframe>',
+			content : '<iframe scrolling="auto" frameborder="0" src="' + href + '" style="width:100%;height:98%;"></iframe>',
+			//href : href,
 			modal : modal === undefined ? true : modal,
 			minimizable : minimizable === undefined ? false : minimizable,
 			maximizable : maximizable === undefined ? false : maximizable,
