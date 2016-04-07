@@ -32,17 +32,22 @@
 			},
 			operation : function(mode) {
 				var row = $('#table').datagrid('getSelected');
-				if (row) {
-					if (mode == "Add") {
-						Util.openWin("新增任务", '/task/add.html');
-					} else if (mode == "Delete") {
+				if (mode == "Add") { //添加
+					Util.openWin("新增任务", '/task/add.html');
+				}else{ //增删改
+					if (row) { 
+						  if (mode == "Delete") {
 
-					} else if (mode == "Update") {
-						Util.openWin("更新任务", '/task/update/' + row.id + '.html');
-					} else if (mode == "View") {
-						Util.openWin("查看任务", "/task/view/" + row.id + ".html");
+						} else if (mode == "Update") {
+							Util.openWin("更新任务", '/task/update/' + row.id + '.html');
+						} else if (mode == "View") {
+							Util.openWin("查看任务", "/task/view/" + row.id + ".html");
+						}
+					}else{
+						
 					}
 				}
+				
 
 			},
 			dataGrid : {

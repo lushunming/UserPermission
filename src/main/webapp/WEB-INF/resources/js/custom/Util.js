@@ -1,5 +1,5 @@
 /**
- * 
+ * 工具类
  */
 
 var Util = {
@@ -20,13 +20,23 @@ var Util = {
 			content : url
 		});
 	},
+	/**
+	 * 打开弹窗
+	 * @param title 弹窗题目
+	 * @param href url	
+	 * @param width
+	 * @param height
+	 * @param modal
+	 * @param minimizable
+	 * @param maximizable
+	 */
 	openWin : function(title, href, width, height, modal, minimizable, maximizable) {
 		$('#myWindow').window({
 			title : title,
 			width : width === undefined ? 600 : width,
 			height : height === undefined ? 400 : height,
 			content : '<iframe scrolling="auto" frameborder="0" src="' + href + '" style="width:100%;height:98%;"></iframe>',
-			//href : href,
+			// href : href,
 			modal : modal === undefined ? true : modal,
 			minimizable : minimizable === undefined ? false : minimizable,
 			maximizable : maximizable === undefined ? false : maximizable,
@@ -37,6 +47,9 @@ var Util = {
 			resizable : false,
 			loadingMessage : '正在加载数据，请稍等片刻......'
 		});
+	},
+	showMessage : function() {
+
 	}
 
 }
