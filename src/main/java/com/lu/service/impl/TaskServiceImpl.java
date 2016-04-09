@@ -89,4 +89,27 @@ public class TaskServiceImpl implements TaskService {
 		return dto;
 
 	}
+
+	@Override
+	public void deleteTask(Integer id) throws Exception {
+		if (id == null) {
+			logger.error("TaskServiceImpl.selectTaskById--id不能为空");
+			throw new MyException("id不能为空");
+		}
+		if (canBeDelete(id)) {
+			taskMapper.deleteByPrimaryKey(id);
+		}
+
+	}
+
+	/**
+	 * 判断这条数据是否能被删除，要看看他是否被引用了，如果是不能删除，不是就可以删除
+	 * 
+	 * @param id 数据id
+	 * @return
+	 */
+	private boolean canBeDelete(Integer id) {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

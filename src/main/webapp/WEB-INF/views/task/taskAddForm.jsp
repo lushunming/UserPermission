@@ -29,9 +29,14 @@
 		$(function() {
 			taskAddForm.init();
 		});
-		function callback(){
-			parent.callback();
-		};	
+		function callback(responseText, statusText, xhr, $form) {
+			if (responseText.success) {
+				Util.showMessage(responseText.msg);
+				setTimeout('parent.callback()', 5000);
+			} else {
+				Util.showMessage(responseText.msg);
+			}
+		};
 		var taskAddForm = {
 			init : function() {
 				var t = this;
@@ -64,6 +69,7 @@
 						submitHandler : function(form) { //验证成功后执行的
 							var t = this;
 							$(form).ajaxSubmit(option);
+							return false;
 						},
 						rules : {
 							name : "required",

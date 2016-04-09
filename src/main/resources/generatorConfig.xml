@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 		</javaClientGenerator>
 		<!--对应数据库表名 -->
 
-		<table schema="public" tableName="t_user" domainObjectName="User">
+<!-- 		<table schema="public" tableName="t_user" domainObjectName="User">
 			<generatedKey column="id" sqlStatement=" SELECT currval('t_user_id_seq')"
 				identity="true" />
 		</table>
@@ -59,12 +59,12 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 		<table schema="public" tableName="t_task" domainObjectName="Task">
 			<generatedKey column="id" sqlStatement=" SELECT currval('t_task_id_seq')"
 				identity="true" />
-		</table>
+		</table> -->
 		<table schema="public" tableName="t_role" domainObjectName="Role">
 			<generatedKey column="id" sqlStatement=" SELECT currval('t_role_id_seq')"
 				identity="true" />
 		</table>
-		<table schema="public" tableName="t_user_role_rel"
-			domainObjectName="UserRoleRel"></table>
+		<!-- <table schema="public" tableName="t_user_role_rel"
+			domainObjectName="UserRoleRel"></table> -->
 	</context>
 </generatorConfiguration>

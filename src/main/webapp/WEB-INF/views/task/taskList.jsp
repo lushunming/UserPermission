@@ -34,20 +34,23 @@
 				var row = $('#table').datagrid('getSelected');
 				if (mode == "Add") { //添加
 					Util.openWin("新增任务", '/task/add.html');
-				}else{ //增删改
-					if (row) { 
-						  if (mode == "Delete") {
-
+				} else { //增删改
+					if (row) {
+						if (mode == "Delete") {
+							var url = "/task/delete/" + row.id;
+							Util.callAjax(url, {}, function(data) {
+								taskList.dataGrid.instance.reload();
+								Util.showMessage(data.msg);
+							});
 						} else if (mode == "Update") {
 							Util.openWin("更新任务", '/task/update/' + row.id + '.html');
 						} else if (mode == "View") {
 							Util.openWin("查看任务", "/task/view/" + row.id + ".html");
 						}
-					}else{
-						
+					} else {
+						Util.showMessage("请选选择要操作的行！");
 					}
 				}
-				
 
 			},
 			dataGrid : {
@@ -78,12 +81,7 @@
 							field : 'url',
 							title : 'url',
 							width : 100
-						} /* , {
-													field : 'operation',
-													title : 'operation',
-													width : 100,
-													formatter : operationFormatter
-												}  */] ],
+						} ] ],
 						toolbar : "#toolBar",//工具栏
 						queryParams : {},
 					};

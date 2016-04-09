@@ -133,7 +133,7 @@ public class TaskController {
 	}
 
 	/**
-	 *更新数据操作
+	 * 更新数据操作
 	 * 
 	 * @param dto 需要更新的dto
 	 * @return 返回更新结果
@@ -144,12 +144,12 @@ public class TaskController {
 		ResultDto resultDto = null;
 		boolean success = false;
 		try {
-		taskService.updateTask(dto);
-		success=true;
+			taskService.updateTask(dto);
+			success = true;
 		} catch (Exception e) {
 			resultDto = new ResultDto("更新失败", success, CommonConstant.UPDATE_ERROR);
 			e.printStackTrace();
-			logger.error("TaskController.updateTask--"+e.getMessage());
+			logger.error("TaskController.updateTask--" + e.getMessage());
 		}
 		if (success) {
 			resultDto = new ResultDto("更新成功", success, CommonConstant.UPDATE_SUCCESS);
@@ -157,6 +157,33 @@ public class TaskController {
 			resultDto = new ResultDto("更新失败", success, CommonConstant.UPDATE_ERROR);
 		}
 		return resultDto;
-
 	}
+
+	/**
+	 * 删除数据操作
+	 * 
+	 * @param dto 需要删除的dto
+	 * @return 返回删除结果
+	 */
+	@RequestMapping("/delete/{id}")
+	@ResponseBody
+	public ResultDto deleteTask(@PathVariable Integer id) {
+		ResultDto resultDto = null;
+		boolean success = false;
+		try {
+			taskService.deleteTask(id);
+			success = true;
+		} catch (Exception e) {
+			resultDto = new ResultDto("删除失败", success, CommonConstant.DELETE_ERROR);
+			e.printStackTrace();
+			logger.error("TaskController.deleteTask--" + e.getMessage());
+		}
+		if (success) {
+			resultDto = new ResultDto("删除成功", success, CommonConstant.DELETE_ERROR);
+		} else {
+			resultDto = new ResultDto("删除失败", success, CommonConstant.DELETE_ERROR);
+		}
+		return resultDto;
+	}
+
 }

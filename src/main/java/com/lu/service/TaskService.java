@@ -44,4 +44,12 @@ public interface TaskService {
 	 * @throws Exception
 	 */
 	public TaskDto selectTaskById(Integer id) throws Exception;
+
+	/**
+	 * 根据id删除一条数剧
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void deleteTask(Integer id) throws Exception;
 }
