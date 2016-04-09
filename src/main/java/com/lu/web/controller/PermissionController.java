@@ -15,100 +15,100 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.lu.common.CommonConstant;
+import com.lu.dto.PermissionDto;
 import com.lu.dto.ResultDto;
-import com.lu.dto.TaskDto;
-import com.lu.model.Task;
-import com.lu.service.ITaskService;
+import com.lu.model.Permission;
+import com.lu.service.IPermissionService;
 
 /**
- * 任务的前端控制器
+ * 权限的前端控制器
  * 
  * @author lusm
  * @date 2016年3月27日
  *
  */
 @Controller
-@RequestMapping("/task")
-public class TaskController {
-	private Logger logger = Logger.getLogger(TaskController.class);
-	/** 任务service */
+@RequestMapping("/permission")
+public class PermissionController {
+	private Logger logger = Logger.getLogger(PermissionController.class);
+	/** 权限service */
 	@Resource
-	private ITaskService taskService;
+	private IPermissionService permissionService;
 
 	/**
-	 * 到达任务列表页面
+	 * 到达权限列表页面
 	 * 
 	 * @return 页面
 	 */
 	@RequestMapping("/list.html")
 	public String gotoList() {
-		return "task/taskList";
+		return "permission/permissionList";
 	}
 
 	/**
-	 * 到达任务新增
+	 * 到达权限新增
 	 * 
 	 * @return 页面
 	 */
 	@RequestMapping("/add.html")
 	public String gotoAdd() {
-		return "task/taskAddForm";
+		return "permission/permissionAddForm";
 	}
 
 	/**
-	 * 到达任务更新
+	 * 到达权限更新
 	 * 
 	 * @param id 数据的主键id
 	 * @return 页面
 	 */
 	@RequestMapping("/update/{id}.html")
 	public String gotoUpdate(@PathVariable Integer id, Model model) {
-		TaskDto dto = null;
+		PermissionDto dto = null;
 		try {
-			dto = taskService.selectTaskById(id);
+			dto = permissionService.selectPermissionById(id);
 		} catch (Exception e) {
-
 			e.printStackTrace();
-			logger.error("TaskController.gotoUpdate--" + e.getMessage());
+			logger.error("permissionController.gotoUpdate--" + e.getMessage());
 		}
-		model.addAttribute("task", dto);
-		return "task/taskUpdateForm";
+		model.addAttribute("permission", dto);
+		return "permission/permissionUpdateForm";
 	}
 
 	/**
-	 * 到达任务查看
+	 * 到达权限查看
 	 * 
 	 * @param id 数据的主键id
 	 * @return 页面
 	 */
 	@RequestMapping("/view/{id}.html")
 	public String gotoView(@PathVariable Integer id, Model model) {
-		TaskDto dto = null;
+		PermissionDto dto = null;
 		try {
-			dto = taskService.selectTaskById(id);
+			dto = permissionService.selectPermissionById(id);
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			logger.error("TaskController.gotoView--" + e.getMessage());
+			logger.error("permissionController.gotoView--" + e.getMessage());
 		}
-		model.addAttribute("task", dto);
-		return "task/taskViewForm";
+		model.addAttribute("permission", dto);
+		return "permission/permissionViewForm";
 	}
 
 	/**
-	 * 获取所有的任务
+	 * 获取所有的权限
 	 * 
 	 * @return 返回列表
 	 */
 	@RequestMapping("/querylist")
 	@ResponseBody
-	public Map<String, Object> queryTaskList(int page, int rows) {
-		List<Task> tasks = taskService.findList(page, rows);
-		PageInfo<Task> taskPage = new PageInfo<Task>(tasks);
+	public Map<String, Object> queryPermissionList(int page, int rows) {
+		List<Permission> permissions = permissionService.findList(page, rows);
+		PageInfo<Permission> taskPage = new PageInfo<Permission>(permissions);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("total", taskPage.getTotal());
-		result.put("rows", tasks);
+		result.put("rows", permissions);
 		return result;
+
 	}
 
 	/**
@@ -119,15 +119,15 @@ public class TaskController {
 	 */
 	@RequestMapping("/save")
 	@ResponseBody
-	public ResultDto saveTask(TaskDto dto) {
+	public ResultDto savePermission(PermissionDto dto) {
 		ResultDto resultDto = null;
 		boolean success = false;
 		try {
-			success = taskService.saveTask(dto);
+			success = permissionService.savePermission(dto);
 		} catch (Exception e) {
 			resultDto = new ResultDto("保存失败", success, CommonConstant.SAVE_ERROR);
 			e.printStackTrace();
-			logger.error("TaskController.saveTask--" + e.getMessage());
+			logger.error("permissionController.savepermission--" + e.getMessage());
 		}
 		if (success) {
 			resultDto = new ResultDto("保存成功", success, CommonConstant.SAVE_SUCCESS);
@@ -146,16 +146,16 @@ public class TaskController {
 	 */
 	@RequestMapping("/update")
 	@ResponseBody
-	public ResultDto updateTask(TaskDto dto) {
+	public ResultDto updatePermission(PermissionDto dto) {
 		ResultDto resultDto = null;
 		boolean success = false;
 		try {
-			taskService.updateTask(dto);
+			permissionService.updatePermission(dto);
 			success = true;
 		} catch (Exception e) {
 			resultDto = new ResultDto("更新失败", success, CommonConstant.UPDATE_ERROR);
 			e.printStackTrace();
-			logger.error("TaskController.updateTask--" + e.getMessage());
+			logger.error("permissionController.updatepermission--" + e.getMessage());
 		}
 		if (success) {
 			resultDto = new ResultDto("更新成功", success, CommonConstant.UPDATE_SUCCESS);
@@ -173,16 +173,16 @@ public class TaskController {
 	 */
 	@RequestMapping("/delete/{id}")
 	@ResponseBody
-	public ResultDto deleteTask(@PathVariable Integer id) {
+	public ResultDto deletePermission(@PathVariable Integer id) {
 		ResultDto resultDto = null;
 		boolean success = false;
 		try {
-			taskService.deleteTask(id);
+			permissionService.deletePermission(id);
 			success = true;
 		} catch (Exception e) {
 			resultDto = new ResultDto("删除失败", success, CommonConstant.DELETE_ERROR);
 			e.printStackTrace();
-			logger.error("TaskController.deleteTask--" + e.getMessage());
+			logger.error("permissionController.deletepermission--" + e.getMessage());
 		}
 		if (success) {
 			resultDto = new ResultDto("删除成功", success, CommonConstant.DELETE_ERROR);
@@ -190,20 +190,6 @@ public class TaskController {
 			resultDto = new ResultDto("删除失败", success, CommonConstant.DELETE_ERROR);
 		}
 		return resultDto;
-	}
-
-	/**
-	 * 校验参数
-	 * 
-	 * @param paramName
-	 * @param value
-	 * @return
-	 */
-	@RequestMapping("/check/{param}")
-	@ResponseBody
-	public boolean checkForm(@PathVariable String paramName, String value) {
-		// TODO
-		return true;
 	}
 
 }

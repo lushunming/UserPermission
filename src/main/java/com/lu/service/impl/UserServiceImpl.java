@@ -15,10 +15,10 @@ import com.lu.model.User;
 import com.lu.model.UserExample;
 import com.lu.model.UserExample.Criteria;
 import com.lu.persistence.dao.UserMapper;
-import com.lu.service.UserService;
+import com.lu.service.IUserService;
 
 @Service(value = "userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 	private Logger logger = Logger.getLogger(UserServiceImpl.class);
 	/** 用户mapper接口 */
 	private @Resource UserMapper usermapper;

@@ -10,7 +10,7 @@ import com.lu.model.User;
  * @date 2016年3月26日
  *
  */
-public interface UserService {
+public interface IUserService {
 	/**
 	 * 保存一个user
 	 * 

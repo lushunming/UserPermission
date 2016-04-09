@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lu.dto.ResultDto;
 import com.lu.dto.UserDto;
-import com.lu.service.UserService;
+import com.lu.service.IUserService;
 
 @Controller
 @RequestMapping("test")
 public class TestController {
-	private @Resource UserService userService;
+	private @Resource IUserService userService;
 	private Logger logger=Logger.getLogger(TestController.class);
 
 	@RequestMapping("/user")

@@ -9,11 +9,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.lu.common.MyException;
+import com.lu.dto.TaskDto;
 import com.lu.model.Task;
 import com.lu.model.TaskExample;
 import com.lu.persistence.dao.TaskMapper;
-import com.lu.service.TaskService;
+import com.lu.service.ITaskService;
 
 /**
  * 任务的service
@@ -23,13 +25,15 @@ import com.lu.service.TaskService;
  *
  */
 @Service("taskService")
-public class TaskServiceImpl implements TaskService {
+public class TaskServiceImpl implements ITaskService {
 	private Logger logger = Logger.getLogger(TaskServiceImpl.class);
 	private @Resource TaskMapper taskMapper;
 
-	public List<Task> findList() {
+	public List<Task> findList(int pageNumber,int pageSize) {
 		TaskExample example = new TaskExample();
+		PageHelper.startPage(pageNumber, pageSize);
 		List<Task> tasks = taskMapper.selectByExample(example);
+	
 		return tasks;
 	}
 

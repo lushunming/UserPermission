@@ -7,6 +7,6 @@ package com.lu.service;
  * @date 2016年4月1日
  *
  */
-public interface RoleService {
+public interface IRoleService {
 
 }

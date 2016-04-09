@@ -1,4 +1,4 @@
-package com.lu.service.impl;
+package com.lu.dto;
 
 import com.lu.model.Task;
 

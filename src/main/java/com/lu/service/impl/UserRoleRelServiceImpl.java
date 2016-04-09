@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import com.lu.model.UserRoleRelExample;
 import com.lu.model.UserRoleRelExample.Criteria;
 import com.lu.persistence.dao.UserRoleRelMapper;
-import com.lu.service.UserRoleRelService;
+import com.lu.service.IUserRoleRelService;
 
 @Service(value = "userRoleRelService")
-public class UserRoleRelServiceImpl implements UserRoleRelService {
+public class UserRoleRelServiceImpl implements IUserRoleRelService {
 	private Logger logger = Logger.getLogger(UserRoleRelServiceImpl.class);
 	/** 用户角色关系mapper接口 */
 	private @Resource UserRoleRelMapper userRoleRelMapper;

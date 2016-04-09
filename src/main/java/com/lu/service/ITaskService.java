@@ -2,8 +2,8 @@ package com.lu.service;
 
 import java.util.List;
 
+import com.lu.dto.TaskDto;
 import com.lu.model.Task;
-import com.lu.service.impl.TaskDto;
 
 /**
  * task的service接口
@@ -12,11 +12,11 @@ import com.lu.service.impl.TaskDto;
  * @date 2016年3月26日
  *
  */
-public interface TaskService {
+public interface ITaskService {
 	/**
 	 * 查找所有的任务
 	 */
-	public List<Task> findList();
+	public List<Task> findList(int pageNumber,int pageSize);
 
 	/**
 	 * 保存任务

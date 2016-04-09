@@ -1,9 +1,11 @@
 package com.lu.persistence.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.lu.model.Task;
 import com.lu.model.TaskExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface TaskMapper {
     /**

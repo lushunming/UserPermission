@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2016年4月1日
  *
  */
-public interface UserRoleRelService {
+public interface IUserRoleRelService {
 	/**
 	 * 根据用户的userid获取他的所有角色id
 	 * @param userId  用户id

@@ -17,16 +17,16 @@ import org.apache.shiro.subject.PrincipalCollection;
 import com.lu.common.CommonConstant;
 import com.lu.model.MyPrincipal;
 import com.lu.model.User;
-import com.lu.service.UserRoleRelService;
-import com.lu.service.UserService;
+import com.lu.service.IUserRoleRelService;
+import com.lu.service.IUserService;
 
 public class MyRealm extends AuthorizingRealm {
 	/** 用户service */
 	@Resource
-	private UserService userService;
+	private IUserService userService;
 	/** 用户角色关系service */
 	@Resource
-	private UserRoleRelService userRoleRelService;
+	private IUserRoleRelService userRoleRelService;
 
 	/**
 	 * 获取授权信息
