@@ -5,9 +5,8 @@
 	
 
 	<mappers>
-		<mapper resource="com/lu/persistence/mapper/PermissionMapper.xml" />
 		<mapper resource="com/lu/persistence/mapper/RoleMapper.xml" />
-		<mapper resource="com/lu/persistence/mapper/RolePermissionRelMapper.xml" />
+		<mapper resource="com/lu/persistence/mapper/RoleTaskRelMapper.xml" />
 		<mapper resource="com/lu/persistence/mapper/TaskMapper.xml" />
 		<mapper resource="com/lu/persistence/mapper/UserMapper.xml" />
 		<mapper resource="com/lu/persistence/mapper/UserRoleRelMapper.xml" />

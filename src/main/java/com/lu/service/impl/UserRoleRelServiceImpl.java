@@ -22,8 +22,9 @@ public class UserRoleRelServiceImpl implements IUserRoleRelService {
 		UserRoleRelExample example = new UserRoleRelExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
-		List<Integer> roles = userRoleRelMapper.selectRolesByExample(example);
-		return roles;
+		// TODO
+		// List<Integer> roles = userRoleRelMapper.selectByExample(example);
+		return null;
 
 	}
 
