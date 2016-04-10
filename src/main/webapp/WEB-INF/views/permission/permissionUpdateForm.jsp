@@ -8,39 +8,39 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<form class="row form-horizontal margin" id="taskUpdateForm">
-			<input type="hidden" name="id" value="${task.id}">
+		<form class="row form-horizontal margin" id="permissionUpdateForm">
+			<input type="hidden" name="id" value="${permission.id}">
 			<div class="form-group">
 				<label class="col-xs-2  control-label">名称：<span class="col-danger">*</span></label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" placeholder="名称" name="name" value="${task.name}">
+					<input type="text" class="form-control" placeholder="名称" name="name" value="${permission.name}">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2  control-label">URL：<span class="col-danger ">*</span></label>
+				<label class="col-xs-2  control-label">描述：<span class="col-danger ">*</span></label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" placeholder="URL" name="url" value="${task.url}">
+					<input type="text" class="form-control" placeholder="描述" name="description" value="${permission.description}">
 				</div>
 			</div>
 		</form>
-		<button class="btn btn-success col-xs-offset-4" onclick="taskUpdateForm.submitForm()">提交</</button>
+		<button class="btn btn-success col-xs-offset-4" onclick="permissionUpdateForm.submitForm()">提交</</button>
 		<button class="btn btn-default" onclick="callback()">取消</button>
 	</div>
 	</div>
 	<script type="text/javascript">
 		$(function() {
-			taskUpdateForm.init();
+			permissionUpdateForm.init();
 		});
 		function callback() {
 			parent.callback();
 		};
-		var taskUpdateForm = {
+		var permissionUpdateForm = {
 			init : function() {
 				var t = this;
 				t.dataGrid.init();
 			},
 			submitForm : function() {
-				$("#taskUpdateForm").submit();
+				$("#permissionUpdateForm").submit();
 				return false;
 			},
 			dataGrid : {
@@ -48,7 +48,7 @@
 					var option = {
 						target : '#output2', // target element(s) to be updated with server response 
 						success : callback,
-						url : "/task/update",
+						url : "/permission/update",
 						type : "post",
 						dataType : "json"
 					// post-submit callback 
@@ -62,7 +62,7 @@
 					// $.ajax options can be used here too, for example: 
 					//timeout:   3000 
 					};
-					$("#taskUpdateForm").validate({
+					$("#permissionUpdateForm").validate({
 						submitHandler : function(form) { //验证成功后执行的
 							var t = this;
 							$(form).ajaxSubmit(option);
