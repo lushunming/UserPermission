@@ -8,17 +8,17 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<form class="row form-horizontal margin" id="taskAddForm">
+		<form class="row form-horizontal margin" id="permissionAddForm">
 			<div class="form-group">
 				<label class="col-xs-2  control-label">名称：<span class="col-danger">*</span></label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" placeholder="名称" name="name" value="${task.name}">
+					<input type="text" class="form-control" placeholder="名称" name="name" value="${permission.name}">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2  control-label">URL：<span class="col-danger ">*</span></label>
+				<label class="col-xs-2  control-label">描述：<span class="col-danger ">*</span></label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" placeholder="URL" name="url" value="${task.url}">
+					<input type="text" class="form-control" placeholder="描述" name="description" value="${permission.description}">
 				</div>
 			</div>
 		</form>
