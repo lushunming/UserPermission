@@ -13,7 +13,10 @@
 	</div>
 
 	<div id="toolBar">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="taskList.operation('Add')">增加</a> <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="taskList.operation('Delete')">删除</a> <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="taskList.operation('Update')">更新</a> <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="taskList.operation('View')">查看</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="taskList.operation('Add')">增加</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="taskList.operation('Delete')">删除</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="taskList.operation('Update')">更新</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="taskList.operation('View')">查看</a>
 	</div>
 	<div id="myWindow"></div>
 	<script type="text/javascript">
@@ -80,6 +83,10 @@
 						}, {
 							field : 'url',
 							title : 'url',
+							width : 100
+						}, {
+							field : 'description',
+							title : '描述',
 							width : 100
 						} ] ],
 						toolbar : "#toolBar",//工具栏

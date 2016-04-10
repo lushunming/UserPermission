@@ -22,6 +22,12 @@
 					<input type="text" class="form-control" placeholder="URL" name="url" value="${task.url}">
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="col-xs-2  control-label">描述：<span class="col-danger ">*</span></label>
+				<div class="col-xs-8">
+					<textarea class="form-control" rows="3" placeholder="描述" name="description">${task.description}</textarea>
+				</div>
+			</div>
 		</form>
 		<button class="btn btn-success col-xs-offset-4" onclick="taskUpdateForm.submitForm()">提交</</button>
 		<button class="btn btn-default" onclick="callback()">取消</button>

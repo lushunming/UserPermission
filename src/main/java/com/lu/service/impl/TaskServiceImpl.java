@@ -29,11 +29,11 @@ public class TaskServiceImpl implements ITaskService {
 	private Logger logger = Logger.getLogger(TaskServiceImpl.class);
 	private @Resource TaskMapper taskMapper;
 
-	public List<Task> findList(int pageNumber,int pageSize) {
+	public List<Task> findList(int pageNumber, int pageSize) {
 		TaskExample example = new TaskExample();
 		PageHelper.startPage(pageNumber, pageSize);
 		List<Task> tasks = taskMapper.selectByExample(example);
-	
+
 		return tasks;
 	}
 
@@ -71,6 +71,7 @@ public class TaskServiceImpl implements ITaskService {
 		Task task = taskMapper.selectByPrimaryKey(dto.getId());
 		task.setName(dto.getName());
 		task.setUrl(dto.getUrl());
+		task.setDescription(dto.getDescription());
 		taskMapper.updateByPrimaryKey(task);
 
 	}

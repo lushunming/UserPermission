@@ -21,6 +21,12 @@
 					<input type="text" class="form-control" placeholder="URL" name="url" value="${task.url}">
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="col-xs-2  control-label">描述：<span class="col-danger ">*</span></label>
+				<div class="col-xs-8">
+					<textarea class="form-control" rows="3" placeholder="描述" name="description">${task.description}</textarea>
+				</div>
+			</div>
 		</form>
 	</div>
 	<script type="text/javascript">
