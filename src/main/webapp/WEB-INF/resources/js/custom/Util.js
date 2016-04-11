@@ -64,7 +64,7 @@ var Util = {
 		(msg == undefined) ? message = "" : message = msg;
 		var config = {
 			msg : message,
-			timeout : 5000,
+			timeout : 3000,
 			showType : 'slide'
 		};
 		$.messager.show(config);
