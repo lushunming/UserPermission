@@ -23,9 +23,8 @@
 				</div>
 			</div>
 		</form>
-		<button class="btn btn-success col-xs-offset-4" onclick="permissionUpdateForm.submitForm()">提交</</button>
+		<button class="btn btn-success col-xs-offset-4" onclick="permissionUpdateForm.submitForm()">提交</button>
 		<button class="btn btn-default" onclick="callback()">取消</button>
-	</div>
 	</div>
 	<script type="text/javascript">
 		$(function() {
