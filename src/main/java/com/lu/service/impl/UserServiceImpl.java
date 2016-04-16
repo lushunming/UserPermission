@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.lu.common.MyException;
 import com.lu.dto.UserDto;
+import com.lu.model.Role;
 import com.lu.model.User;
 import com.lu.model.UserExample;
 import com.lu.model.UserExample.Criteria;
@@ -118,12 +119,12 @@ public class UserServiceImpl implements IUserService {
 		user.setLoginname(dto.getLoginname());
 		user.setPassword(dto.getPassword());
 		user.setStatus(dto.getStatus());
-		userMapper.insert(user);
-		return false;
+
+		return userMapper.insert(user) > 0;
 	}
 
 	@Override
-	public List<User> findList(int page, int rows, Integer level) {
+	public List<User> findList(int page, int rows, List<Integer> roles) {
 		PageHelper.startPage(page, rows);
 		// TODO这个方法要在mapper中重新定义
 		// userMapper.selectUsersBy(example);
@@ -181,5 +182,11 @@ public class UserServiceImpl implements IUserService {
 	private boolean canBeDelete(Integer id) {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public List<Role> findRolesByUserId(Integer id) {
+		List<Role> roles = userMapper.findRolesByUserId(id);
+		return roles;
 	}
 }

@@ -70,7 +70,7 @@ public class RoleServiceImpl implements IRoleService {
 	 */
 	private boolean canBeDelete(Integer id) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class RoleServiceImpl implements IRoleService {
 		if (dto.getLevel() == null) {
 			logAndThrowError(methodName, "角色的级别不能为空");
 		}
-		Role role = new Role();
+		Role role = selectRoleById(dto.getId());
 		role.setDescription(dto.getDescription());
 		role.setLevel(dto.getLevel());
 		role.setName(dto.getName());

@@ -3,6 +3,7 @@ package com.lu.service;
 import java.util.List;
 
 import com.lu.dto.UserDto;
+import com.lu.model.Role;
 import com.lu.model.User;
 
 /**
@@ -56,10 +57,10 @@ public interface IUserService {
 	 * 
 	 * @param page 第几页
 	 * @param rows 每一页的数目
-	 * @param level 当前人的角色等级
+	 * @param roles 当前人拥有的角色
 	 * @return
 	 */
-	public List<User> findList(int page, int rows, Integer level);
+	public List<User> findList(int page, int rows, List<Integer> roles);
 
 	/**
 	 * 
@@ -76,5 +77,7 @@ public interface IUserService {
 	 * 
 	 */
 	public void vetUser(Integer id, Integer status);
+
+	public List<Role> findRolesByUserId(Integer id);
 
 }

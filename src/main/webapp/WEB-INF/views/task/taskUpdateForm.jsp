@@ -43,10 +43,14 @@
 			taskUpdateForm.init();
 		});
 		function callback(responseText, statusText, xhr, $form) {
-			if (responseText.success) {
-				parent.callback(responseText.msg);
-			} else {
-				Util.showMessage(responseText.msg);
+			if (responseText) {
+				if (responseText.success) {
+					parent.callback(responseText.msg);
+				} else {
+					Util.showMessage(responseText.msg);
+				}
+			}else{
+				parent.callback();
 			}
 		};
 		var taskUpdateForm = {

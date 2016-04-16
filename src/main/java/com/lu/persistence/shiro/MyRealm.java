@@ -16,6 +16,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 
 import com.lu.common.CommonConstant;
 import com.lu.model.MyPrincipal;
+import com.lu.model.Role;
 import com.lu.model.User;
 import com.lu.service.IUserRoleRelService;
 import com.lu.service.IUserService;
@@ -35,7 +36,7 @@ public class MyRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		MyPrincipal principal=	(MyPrincipal) arg0.getPrimaryPrincipal();
 		SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
-		String loginName=principal.getLoginName();
+		//String loginName=principal.getLoginName();
 		return info;
 	}
 
@@ -54,9 +55,10 @@ public class MyRealm extends AuthorizingRealm {
 		if (user.getStatus().equals(CommonConstant.STATUS_CHECK_NOPASS) || user.getStatus().equals(CommonConstant.STATUS_UNCHECK)) {
 			return null;
 		}
-		List<Integer> roles = userRoleRelService.findRolesByUserId(user.getId());
+		List<Role> roles = userService.findRolesByUserId(user.getId());
+		
 		//TODO
-		MyPrincipal principal=new MyPrincipal(user.getLoginname(), roles, null);
+		MyPrincipal principal=new MyPrincipal(user,roles);
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, user.getPassword(),getName());
 		return info;
 	}

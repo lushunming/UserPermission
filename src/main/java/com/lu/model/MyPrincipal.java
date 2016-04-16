@@ -11,53 +11,40 @@ import java.util.List;
  */
 public class MyPrincipal implements Serializable {
 
-	
-	public String getLoginName() {
-		return loginName;
-	}
-
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
-
-	public List<Integer> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Integer> roles) {
-		this.roles = roles;
-	}
-
-	public List<Integer> getPermissions() {
-		return permissions;
-	}
-
-	public void setPermissions(List<Integer> permissions) {
-		this.permissions = permissions;
-	}
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 9759234926125474L;
 	/**
-	 * 登录名
+	 * 用户信息
 	 */
-	private String loginName;
+	private User user;
+
+	public MyPrincipal(User user, List<Role> roles) {
+		super();
+		this.user = user;
+		this.roles = roles;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
 	/**
 	 * 用户的所有角色
 	 */
-	private List<Integer> roles;
-	/**
-	 * 用户的权限
-	 */
-	private List<Integer> permissions;
-
-	public MyPrincipal(String loginName, List<Integer> roles, List<Integer> permissions) {
-		super();
-		this.loginName = loginName;
-		this.roles = roles;
-		this.permissions = permissions;
-	}
+	private List<Role> roles;
 
 }

@@ -7,6 +7,7 @@ import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +59,9 @@ public class AccountController {
 		}
 		UsernamePasswordToken token = new UsernamePasswordToken(loginName, password);
 		Subject user = SecurityUtils.getSubject();
-		Object object=user.getPrincipal();
+		Session session = user.getSession(true);
+		session.setAttribute("user", user.getPrincipal());
+		Object object = user.getPrincipal();
 		token.setRememberMe(true);
 		try {
 			user.login(token);

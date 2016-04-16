@@ -25,9 +25,13 @@
 		});
 		//新增后的回调
 		function callback(msg) {
+
 			taskList.dataGrid.instance.reload();
 			$("#myWindow").window("close");
-			Util.showMessage(msg);
+			if (msg) {
+				Util.showMessage(msg);
+			}
+
 		};
 		var taskList = {
 			init : function() {

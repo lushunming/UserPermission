@@ -7,17 +7,19 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.PageInfo;
 import com.lu.common.CommonConstant;
 import com.lu.dto.ResultDto;
 import com.lu.dto.UserDto;
-import com.lu.model.User;
+import com.lu.model.MyPrincipal;
+import com.lu.model.Role;
 import com.lu.service.IUserService;
 
 /**
@@ -103,11 +105,14 @@ public class UserController {
 	@RequestMapping("/querylist")
 	@ResponseBody
 	public Map<String, Object> queryUserList(int page, int rows) {
-		List<User> users = null ;//= userService.findList(page, rows);
-		PageInfo<User> userPage = new PageInfo<User>(users);
+		Subject user = SecurityUtils.getSubject();
+		MyPrincipal principal = (MyPrincipal) user.getPrincipal();
+		List<Role> roles = principal.getRoles();
+	//	List<User> users = userService.findList(page, rows,roles);
+	//	PageInfo<User> userPage = new PageInfo<User>(users);
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("total", userPage.getTotal());
-		result.put("rows", users);
+		/*result.put("total", userPage.getTotal());
+		result.put("rows", users);*/
 		return result;
 	}
 
@@ -123,9 +128,10 @@ public class UserController {
 		ResultDto resultDto = null;
 		boolean success = false;
 		try {
+			dto.setStatus(CommonConstant.STATUS_CHECKED);
 			success = userService.saveUser(dto);
 		} catch (Exception e) {
-			resultDto = new ResultDto("保存失败", success, CommonConstant.SAVE_ERROR);
+			resultDto = new ResultDto("保存失败"+e.getMessage(), success, CommonConstant.SAVE_ERROR);
 			e.printStackTrace();
 			logger.error("UserController.saveUser--" + e.getMessage());
 		}
@@ -153,7 +159,7 @@ public class UserController {
 			userService.updateUser(dto);
 			success = true;
 		} catch (Exception e) {
-			resultDto = new ResultDto("更新失败", success, CommonConstant.UPDATE_ERROR);
+			resultDto = new ResultDto("更新失败"+e.getMessage(), success, CommonConstant.UPDATE_ERROR);
 			e.printStackTrace();
 			logger.error("UserController.updateUser--" + e.getMessage());
 		}

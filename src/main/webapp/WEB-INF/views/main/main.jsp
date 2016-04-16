@@ -47,7 +47,7 @@
 <body class="easyui-layout" data-options="fit : true,border : false" >
 	<div region="north" border="true" split="true" style="overflow: hidden; height: 80px;">
 		<div class="top-bg">
-				"${user.loginName}",${user.roles}
+				"${user}",${user.roles}
 		</div>
 	</div>
 	<div region="south" border="true" split="true" style="overflow: hidden; height: 40px;">
