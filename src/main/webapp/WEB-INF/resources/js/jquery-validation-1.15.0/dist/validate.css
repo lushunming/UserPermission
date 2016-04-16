@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+input.error {
+	border: 1px solid red;
+}
+
+label.error {
+	padding-left: 16px;
+	padding-bottom: 2px;
+	font-weight: bold;
+	color: #ff0000;
+}
+
+label.checked {
+	
+}
