@@ -16,7 +16,7 @@ public interface ITaskService {
 	/**
 	 * 查找所有的任务
 	 */
-	public List<Task> findList(int pageNumber,int pageSize);
+	public List<Task> findList(int pageNumber, int pageSize);
 
 	/**
 	 * 保存任务
@@ -52,4 +52,6 @@ public interface ITaskService {
 	 * @throws Exception
 	 */
 	public void deleteTask(Integer id) throws Exception;
+
+	
 }

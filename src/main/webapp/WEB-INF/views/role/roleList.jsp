@@ -78,11 +78,11 @@
 							width : 100
 						}, {
 							field : 'name',
-							title : 'name',
+							title : '名称',
 							width : 100
 						}, {
-							field : 'url',
-							title : 'url',
+							field : 'level',
+							title : '角色等级',
 							width : 100
 						}, {
 							field : 'description',

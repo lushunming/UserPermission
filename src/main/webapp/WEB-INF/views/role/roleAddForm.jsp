@@ -10,28 +10,25 @@
 	<div class="container-fluid">
 		<form class="row form-horizontal margin" id="roleAddForm">
 			<div class="form-group">
-				<label class="col-xs-2  control-label">
+				<label class="col-xs-3  control-label text-center">
 					名称：
-					<span class="col-danger">*</span>
+					<span class="text-danger">*</span>
 				</label>
 				<div class="col-xs-8">
 					<input type="text" class="form-control" placeholder="名称" name="name">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2  control-label">
-					URL：
-					<span class="col-danger ">*</span>
+				<label class="col-xs-3  control-label text-center">
+					角色等级：
+					<span class="text-danger">*</span>
 				</label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" placeholder="URL" name="url">
+					<input type="text" class="form-control" placeholder="等级" name="level">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2  control-label">
-					描述：
-					<span class="col-danger ">*</span>
-				</label>
+				<label class="col-xs-3  control-label text-center"> 描述： </label>
 				<div class="col-xs-8">
 					<textarea class="form-control" rows="3" placeholder="描述" name="description"></textarea>
 				</div>
@@ -47,8 +44,7 @@
 		});
 		function callback(responseText, statusText, xhr, $form) {
 			if (responseText.success) {
-				Util.showMessage(responseText.msg);
-				setTimeout('parent.callback()', 5000);
+				parent.callback(responseText.msg);
 			} else {
 				Util.showMessage(responseText.msg);
 			}
@@ -89,11 +85,15 @@
 						},
 						rules : {
 							name : "required",
-							url : "required"
+							level : {
+								required : true,
+								digits : true,//整数
+								maxlength : 5
+							}
 						},
 						messages : {
 							name : "角色名不能为空",
-							url : "角色的URL不能为空"
+							level : "请输入一个整数"
 						}
 					});
 				}

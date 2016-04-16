@@ -192,18 +192,4 @@ public class TaskController {
 		return resultDto;
 	}
 
-	/**
-	 * 校验参数
-	 * 
-	 * @param paramName
-	 * @param value
-	 * @return
-	 */
-	@RequestMapping("/check/{param}")
-	@ResponseBody
-	public boolean checkForm(@PathVariable String paramName, String value) {
-		// TODO
-		return true;
-	}
-
 }

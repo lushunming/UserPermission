@@ -10,28 +10,33 @@
 	<div class="container-fluid">
 		<form class="row form-horizontal margin" id="taskAddForm">
 			<div class="form-group">
-				<label class="col-xs-2  control-label"> 名称： <span class="text-danger font-size-large">*</span>
+				<label class="col-xs-3  control-label text-center">
+					名称：
+					<span class="text-danger font-size-large">*</span>
 				</label>
 				<div class="col-xs-8">
 					<input type="text" class="form-control" placeholder="名称" name="name">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2  control-label"> URL： <span class="text-danger font-size-large">*</span>
+				<label class="col-xs-3 control-label text-center">
+					URL：
+					<span class="text-danger font-size-large">*</span>
 				</label>
 				<div class="col-xs-8">
 					<input type="text" class="form-control" placeholder="URL" name="url">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2  control-label"> 描述： </label>
+				<label class="col-xs-3  control-label text-center"> 描述： </label>
 				<div class="col-xs-8">
 					<textarea class="form-control" rows="3" placeholder="描述" name="description"></textarea>
 				</div>
 			</div>
 
 		</form>
-		<a class="btn btn-success col-xs-offset-4" onclick="taskAddForm.submitForm()">提交</a> <a class="btn btn-default" onclick="callback()">取消</a>
+		<a class="btn btn-success col-xs-offset-4" onclick="taskAddForm.submitForm()">提交</a>
+		<a class="btn btn-default" onclick="callback()">取消</a>
 	</div>
 	<script type="text/javascript">
 		$(function() {
@@ -39,8 +44,7 @@
 		});
 		function callback(responseText, statusText, xhr, $form) {
 			if (responseText.success) {
-				Util.showMessage(responseText.msg);
-				setTimeout('parent.callback()', 5000);
+				parent.callback(responseText.msg);
 			} else {
 				Util.showMessage(responseText.msg);
 			}

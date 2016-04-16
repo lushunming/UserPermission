@@ -11,19 +11,25 @@
 		<form class="row form-horizontal margin" id="roleUpdateForm">
 			<input type="hidden" name="id" value="${role.id}">
 			<div class="form-group">
-				<label class="col-xs-2  control-label">名称：<span class="col-danger">*</span></label>
+				<label class="col-xs-3  control-label text-center">
+					名称：
+					<span class="text-danger">*</span>
+				</label>
 				<div class="col-xs-8">
 					<input type="text" class="form-control" placeholder="名称" name="name" value="${role.name}">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2  control-label">URL：<span class="col-danger ">*</span></label>
+				<label class="col-xs-3  control-label text-center">
+					角色等级：
+					<span class="text-danger">*</span>
+				</label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" placeholder="URL" name="url" value="${role.url}">
+					<input type="text" class="form-control" placeholder="等级" name="level" value="${role.level}">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2  control-label">描述：<span class="col-danger ">*</span></label>
+				<label class="col-xs-3  control-label text-center"> 描述： </label>
 				<div class="col-xs-8">
 					<textarea class="form-control" rows="3" placeholder="描述" name="description">${role.description}</textarea>
 				</div>
@@ -36,8 +42,12 @@
 		$(function() {
 			roleUpdateForm.init();
 		});
-		function callback() {
-			parent.callback();
+		function callback(responseText, statusText, xhr, $form) {
+			if (responseText.success) {
+				parent.callback(responseText.msg);
+			} else {
+				Util.showMessage(responseText.msg);
+			}
 		};
 		var roleUpdateForm = {
 			init : function() {
@@ -74,11 +84,19 @@
 						},
 						rules : {
 							name : "required",
-							url : "required"
+							level : {
+								required : true,
+								digits : true,//整数
+								maxlength : 5
+							}
 						},
 						messages : {
 							name : "角色名不能为空",
-							url : "角色的URL不能为空"
+							level : {
+								required : "请给角色分配一个等级",
+								digits : "请输入一个整数",
+								maxlength : "整数不能超过五位数"
+							}
 						}
 					});
 				}

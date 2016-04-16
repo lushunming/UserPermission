@@ -11,33 +11,43 @@
 		<form class="row form-horizontal margin" id="taskUpdateForm">
 			<input type="hidden" name="id" value="${task.id}">
 			<div class="form-group">
-				<label class="col-xs-2  control-label">名称：<span class="col-danger">*</span></label>
+				<label class="col-xs-3  control-label text-center">
+					名称：
+					<span class="text-danger">*</span>
+				</label>
 				<div class="col-xs-8">
 					<input type="text" class="form-control" placeholder="名称" name="name" value="${task.name}">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2  control-label">URL：<span class="col-danger ">*</span></label>
+				<label class="col-xs-3  control-label text-center">
+					URL：
+					<span class="text-danger ">*</span>
+				</label>
 				<div class="col-xs-8">
 					<input type="text" class="form-control" placeholder="URL" name="url" value="${task.url}">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2  control-label">描述：<span class="col-danger ">*</span></label>
+				<label class="col-xs-3  control-label text-center" > 描述： </label>
 				<div class="col-xs-8">
 					<textarea class="form-control" rows="3" placeholder="描述" name="description">${task.description}</textarea>
 				</div>
 			</div>
 		</form>
-		<button class="btn btn-success col-xs-offset-4" onclick="taskUpdateForm.submitForm()">提交</button>
-		<button class="btn btn-default" onclick="callback()">取消</button>
+		<a class="btn btn-success col-xs-offset-4" onclick="taskUpdateForm.submitForm()">提交</a>
+		<a class="btn btn-default" onclick="callback()">取消</a>
 	</div>
 	<script type="text/javascript">
 		$(function() {
 			taskUpdateForm.init();
 		});
-		function callback() {
-			parent.callback();
+		function callback(responseText, statusText, xhr, $form) {
+			if (responseText.success) {
+				parent.callback(responseText.msg);
+			} else {
+				Util.showMessage(responseText.msg);
+			}
 		};
 		var taskUpdateForm = {
 			init : function() {
