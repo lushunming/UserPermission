@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,10 @@ import com.github.pagehelper.PageInfo;
 import com.lu.common.CommonConstant;
 import com.lu.dto.ResultDto;
 import com.lu.dto.RoleDto;
+import com.lu.dto.RoleTaskRelKeyDto;
 import com.lu.model.Role;
 import com.lu.service.IRoleService;
+import com.lu.service.IRoleTaskRelService;
 
 /**
  * 角色的前端控制器
@@ -34,6 +37,9 @@ public class RoleController {
 	/** 角色service */
 	@Resource
 	private IRoleService roleService;
+	/** 角色任务关系 */
+	@Resource
+	private IRoleTaskRelService roleTaskRelService;
 
 	/**
 	 * 到达角色列表页面
@@ -206,4 +212,70 @@ public class RoleController {
 		return true;
 	}
 
+	/**
+	 * 给角色分配任务
+	 * 
+	 * @param roleId 角色id
+	 * @return
+	 */
+	@RequestMapping("/granttask/{roleId}")
+	@ResponseBody
+	public ResultDto granttask(@PathVariable Integer roleId, HttpServletRequest request) {
+		ResultDto resultDto = null;
+		String json = request.getParameter("taskIds");
+		String[] taskIds = json.split(",");
+		boolean success = false;
+		try {
+			roleTaskRelService.saveRoleTaskRelByIds(roleId, taskIds);
+			success = true;
+		} catch (Exception e) {
+			resultDto = new ResultDto("分配任务失败" + e.getMessage(), success, CommonConstant.DELETE_ERROR);
+			e.printStackTrace();
+			logger.error("RoleController.deleteRole--" + e.getMessage());
+		}
+		if (success) {
+			resultDto = new ResultDto("分配任务成功", success, CommonConstant.DELETE_ERROR);
+		} else {
+			resultDto = new ResultDto("分配任务失败", success, CommonConstant.DELETE_ERROR);
+		}
+		return resultDto;
+	}
+
+	/**
+	 * 到达给角色分配任务的页面
+	 * 
+	 * @param roleId
+	 * @return
+	 */
+	@RequestMapping("/granttask/{roleId}.html")
+	public String goGrantTaskPage(@PathVariable Integer roleId, Model model) {
+		/*
+		 * List<RoleTaskRelKeyDto> tasks =
+		 * roleTaskRelService.getTasksByRoleId(roleId);
+		 * model.addAttribute("tasks", arg1)
+		 */
+		return "/role/granttask";
+
+	}
+
+	/**
+	 * 到达给角色分配任务的页面
+	 * 
+	 * @param roleId
+	 * @return
+	 */
+	@RequestMapping("/taskList/{roleId}")
+	@ResponseBody
+	public List<RoleTaskRelKeyDto> getTasksByRoleId(@PathVariable Integer roleId) {
+		List<RoleTaskRelKeyDto> tasks = null;
+		try {
+			tasks = roleTaskRelService.getTasksByRoleId(roleId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("RoleController.deleteRole--" + e.getMessage());
+		}
+
+		return tasks;
+
+	}
 }
