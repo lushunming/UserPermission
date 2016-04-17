@@ -22,7 +22,6 @@ public interface IRoleService {
 	 */
 	public Integer insertRole(RoleDto dto);
 
-
 	/**
 	 * 根据id删除角色
 	 * 
@@ -54,6 +53,13 @@ public interface IRoleService {
 	 * @return
 	 */
 	public List<Role> findList(int page, int rows);
+
+	/**
+	 * 查找角色列表(不分页)
+	 * 
+	 * @return
+	 */
+	public List<Role> findListWithoutPage();
 
 	/**
 	 * 

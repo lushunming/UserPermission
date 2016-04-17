@@ -52,7 +52,10 @@
 							Util.openWin("更新角色", '/role/update/' + row.id + '.html');
 						} else if (mode == "View") {
 							Util.openWin("查看角色", "/role/view/" + row.id + ".html");
+						} else if (mode == "Grant") {
+							Util.openWin("分配任务", "/role/granttask/" + row.id + ".html");
 						}
+
 					} else {
 						Util.showMessage("请选选择要操作的行！");
 					}
@@ -63,13 +66,14 @@
 				instance : '',
 				init : function() { //初始化datagrid
 					var t = this;
-					var operationFormatter = function() {
+					var operationFormatter = function(val, row, index) {
 						var html = '';
-						html += '<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="roleList.operation(\'Update\')">修改</a>'
-						html += '&nbsp;<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>'
+						html += '<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="roleList.dataGrid.selectrow(' + index + ');roleList.operation(\'Grant\');">分配任务</a>'
 						return html;
 					};
-
+					t.selectrow = function(index) {
+						roleList.dataGrid.instance.selectRow(index);
+					};
 					var option = {
 						id : "#table",
 						url : '/role/querylist',
@@ -91,10 +95,16 @@
 							field : 'description',
 							title : '描述',
 							width : 100
-						} ] ],
+						}, {
+							field : 'operate',
+							title : '操作',
+							width : 100,
+							formatter : operationFormatter
+						}, ] ],
 						toolbar : "#toolBar",//工具栏
 						queryParams : {},
 					};
+
 					t.instance = new DataGrid(option);
 				}
 			},

@@ -118,4 +118,11 @@ public class TaskServiceImpl implements ITaskService {
 		return true;
 	}
 
+	@Override
+	public List<Task> findList() {
+		TaskExample example = new TaskExample();
+		List<Task> tasks = taskMapper.selectByExample(example);
+		return tasks;
+	}
+
 }

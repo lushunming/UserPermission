@@ -112,6 +112,19 @@ public class TaskController {
 	}
 
 	/**
+	 * 获取所有的任务
+	 * 
+	 * @return 返回列表
+	 */
+	@RequestMapping("/queryalllist")
+	@ResponseBody
+	public List<Task> queryTaskListWithoutPage() {
+		List<Task> tasks = taskService.findList();
+
+		return tasks;
+	}
+
+	/**
 	 * 保存数据操作
 	 * 
 	 * @param dto 需要保存的dto

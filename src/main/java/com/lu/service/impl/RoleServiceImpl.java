@@ -137,4 +137,11 @@ public class RoleServiceImpl implements IRoleService {
 		return dto;
 	}
 
+	@Override
+	public List<Role> findListWithoutPage() {
+		RoleExample example = new RoleExample();
+		List<Role> list = roleMapper.selectByExample(example);
+		return list;
+	}
+
 }

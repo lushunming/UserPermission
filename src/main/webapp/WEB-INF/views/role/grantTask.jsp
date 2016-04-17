@@ -8,71 +8,69 @@
 <title>分配任务</title>
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false" style="width: 100%; height: 100%;">
-	<div data-options="region:'center',fit:true" style="overflow: hidden;">
+	<div data-options="region:'center',fit:true">
 		<table id="table" data-options="fit:true,border:false"></table>
 	</div>
-
-	<div id="toolBar">
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="roleList.operation('Add')">增加</a>
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="roleList.operation('Delete')">删除</a>
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="roleList.operation('Update')">更新</a>
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="roleList.operation('View')">查看</a>
+	<div data-options="region:'south',border:false" style="overflow: hidden;">
+		<a class="btn btn-success col-xs-offset-4" onclick="roleTaskList.submitForm()">提交</a>
+		<a class="btn btn-default" onclick="callback()">取消</a>
 	</div>
-	<div id="myWindow"></div>
+
 	<script type="text/javascript">
+		var roleId = '${roleId}';
 		$(function() {
-			roleList.init();
+			roleTaskList.init();
 		});
-		//新增后的回调
-		function callback(msg) {
-			roleList.dataGrid.instance.reload();
-			$("#myWindow").window("close");
-			if (msg) {
-				Util.showMessage(msg);
+		function callback(responseText, statusText, xhr, $form) {
+			if (responseText) {
+				if (responseText.success) {
+					parent.callback(responseText.msg);
+				} else {
+					Util.showMessage(responseText.msg);
+				}
+			} else {
+				parent.callback();
 			}
 		};
-		var roleList = {
+		var roleTaskList = {
 			init : function() {
 				var t = this;
 				t.dataGrid.init();
 			},
-			operation : function(mode) {
-				var row = $('#table').datagrid('getSelected');
-				if (mode == "Add") { //添加
-					Util.openWin("新增角色", '/role/add.html');
-				} else { //增删改
-					if (row) {
-						if (mode == "Delete") {
-							var url = "/role/delete/" + row.id;
-							Util.callAjax(url, {}, function(data) {
-								roleList.dataGrid.instance.reload();
-								Util.showMessage(data.msg);
-							});
-						} else if (mode == "Update") {
-							Util.openWin("更新角色", '/role/update/' + row.id + '.html');
-						} else if (mode == "View") {
-							Util.openWin("查看角色", "/role/view/" + row.id + ".html");
-						}
-					} else {
-						Util.showMessage("请选选择要操作的行！");
-					}
-				}
-
+			submitForm : function() {
+				var rows = roleTaskList.dataGrid.instance.getChecked();
+				var ids = [];
+				var url = "/role/granttask/" + roleId;
+				$.each(rows, function(index, row) {
+					ids.push(row.id);
+				});
+				Util.callAjax(url, {
+					taskIds : ids
+				}, callback);
 			},
 			dataGrid : {
+				t : this,
 				instance : '',
+
 				init : function() { //初始化datagrid
 					var t = this;
-					var operationFormatter = function() {
-						var html = '';
-						html += '<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="roleList.operation(\'Update\')">修改</a>'
-						html += '&nbsp;<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>'
-						return html;
-					};
+					t.loadSuccess = function(data) {
+						var url = "/role/taskList/" + roleId;
+						Util.callAjax(url, {}, function(rows) {
+							console.log(rows);
+							$.each(data.rows, function(index, ele) {
+								$.each(rows, function(index1, row) {
 
+									if (ele.id == row.taskId) {
+										roleTaskList.dataGrid.instance.selectRow(index);
+									}
+								});
+							});
+						});
+					};
 					var option = {
 						id : "#table",
-						url : '/role/querylist',
+						url : '/task/queryalllist',
 						height : $("#body").height(),
 						columns : [ [ {
 							field : 'ck',
@@ -81,19 +79,21 @@
 							width : 100
 						}, {
 							field : 'name',
-							title : '名称',
+							title : 'name',
 							width : 100
 						}, {
-							field : 'level',
-							title : '角色等级',
+							field : 'url',
+							title : 'url',
 							width : 100
 						}, {
 							field : 'description',
 							title : '描述',
 							width : 100
 						} ] ],
-						toolbar : "#toolBar",//工具栏
 						queryParams : {},
+						singleSelect : false,
+						pagination : false,
+						onLoadSuccess : t.loadSuccess
 					};
 					t.instance = new DataGrid(option);
 				}

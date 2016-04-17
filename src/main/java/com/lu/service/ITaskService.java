@@ -15,6 +15,10 @@ import com.lu.model.Task;
 public interface ITaskService {
 	/**
 	 * 查找所有的任务
+	 * 
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
 	 */
 	public List<Task> findList(int pageNumber, int pageSize);
 
@@ -53,5 +57,11 @@ public interface ITaskService {
 	 */
 	public void deleteTask(Integer id) throws Exception;
 
-	
+	/**
+	 * 获取所有的任务（不分页）
+	 * 
+	 * @return
+	 */
+	public List<Task> findList();
+
 }

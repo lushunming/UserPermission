@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
@@ -102,7 +103,7 @@ public class RoleController {
 	}
 
 	/**
-	 * 获取所有的角色
+	 * 获取所有的角色（分页）
 	 * 
 	 * @return 返回列表
 	 */
@@ -115,6 +116,18 @@ public class RoleController {
 		result.put("total", rolePage.getTotal());
 		result.put("rows", roles);
 		return result;
+	}
+
+	/**
+	 * 获取所有的角色(不分页)
+	 * 
+	 * @return 返回列表
+	 */
+	@RequestMapping("/queryalllist")
+	@ResponseBody
+	public List<Role> findListWithoutPage() {
+		List<Role> roles = roleService.findListWithoutPage();
+		return roles;
 	}
 
 	/**
@@ -220,10 +233,9 @@ public class RoleController {
 	 */
 	@RequestMapping("/granttask/{roleId}")
 	@ResponseBody
-	public ResultDto granttask(@PathVariable Integer roleId, HttpServletRequest request) {
+	public ResultDto granttask(@PathVariable Integer roleId, HttpServletRequest request, @RequestParam("taskIds[]") String[] taskIds) {
 		ResultDto resultDto = null;
-		String json = request.getParameter("taskIds");
-		String[] taskIds = json.split(",");
+
 		boolean success = false;
 		try {
 			roleTaskRelService.saveRoleTaskRelByIds(roleId, taskIds);
@@ -254,12 +266,12 @@ public class RoleController {
 		 * roleTaskRelService.getTasksByRoleId(roleId);
 		 * model.addAttribute("tasks", arg1)
 		 */
-		return "/role/granttask";
+		return "role/grantTask";
 
 	}
 
 	/**
-	 * 到达给角色分配任务的页面
+	 * 角色已经拥有的任务
 	 * 
 	 * @param roleId
 	 * @return
