@@ -52,6 +52,8 @@
 							Util.openWin("更新用户", '/user/update/' + row.id + '.html');
 						} else if (mode == "View") {
 							Util.openWin("查看用户", "/user/view/" + row.id + ".html");
+						} else if (mode == "Grant") {
+							Util.openWin("分配角色", "/user/grantrole/" + row.id + ".html");
 						}
 					} else {
 						Util.showMessage("请选选择要操作的行！");
@@ -62,10 +64,9 @@
 				instance : '',
 				init : function() { //初始化datagrid
 					var t = this;
-					var operationFormatter = function() {
+					var operationFormatter = function(val, row, index) {
 						var html = '';
-						html += '<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="userList.operation(\'Update\')">修改</a>'
-						html += '&nbsp;<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>'
+						html += '<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="userList.dataGrid.selectrow(' + index + ');userList.operation(\'Grant\');">分配角色</a>'
 						return html;
 					};
 					var statusFormatter = function(value, row, index) {
@@ -79,6 +80,9 @@
 						}
 						return textdis;
 					};
+					t.selectrow = function(index) {
+						userList.dataGrid.instance.selectRow(index);
+					};
 					var option = {
 						t : this,
 						id : "#table",
@@ -89,16 +93,25 @@
 							field : 'ck',
 							title : 'ck',
 							checkbox : true,
-							width : 100
+							width : 100,
+							align:"center"
 						}, {
 							field : 'loginname',
 							title : '用户名',
-							width : 100
+							width : 100,
+							align:"center"
 						}, {
 							field : 'status',
 							title : '用户状态',
 							width : 100,
+							align:"center",
 							formatter : statusFormatter
+						}, {
+							field : 'operater',
+							title : '操作',
+							align:"center",
+							width : 100,
+							formatter : operationFormatter
 						} ] ],
 						toolbar : "#toolBar",//工具栏
 						queryParams : {},

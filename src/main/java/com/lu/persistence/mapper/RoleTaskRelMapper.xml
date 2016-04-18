@@ -162,20 +162,20 @@
 		</if>
 	</select>
 	<select id="getTasksByRoleId" parameterType="java.lang.Integer"
-		resultType="com.lu.dto.RoleTaskRelKeyDto">
+		resultType="com.lu.dto.UserRoleRelKeyDto">
 
-		SELECT
-		rtr.task_id taskId,
-		rtr.role_id roleId, task."name" taskName,
-		task.url taskURL,
-		task.description
-		taskDescription
-		FROM
-		t_task task
-		LEFT JOIN t_role_task_rel rtr ON
-		rtr.task_id = task."id"
-		WHERE
-		rtr.role_id = #{roleId}
+	SELECT
+	rtr.task_id taskId,
+	rtr.role_id roleId, task."name" taskName,
+	task.url taskURL,
+	task.description
+	taskDescription
+	FROM
+	t_task task
+	LEFT JOIN t_role_task_rel rtr ON
+	rtr.task_id = task."id"
+	WHERE
+	rtr.role_id = #{roleId}
 
 	</select>
 	<update id="updateByExampleSelective" parameterType="map">

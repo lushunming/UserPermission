@@ -5,19 +5,23 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.lu.common.CommonConstant;
 import com.lu.dto.ResultDto;
 import com.lu.dto.UserDto;
+import com.lu.dto.UserRoleRelKeyDto;
 import com.lu.model.User;
+import com.lu.service.IUserRoleRelService;
 import com.lu.service.IUserService;
 
 /**
@@ -34,6 +38,9 @@ public class UserController {
 	/** 用户service */
 	@Resource
 	private IUserService userService;
+
+	@Resource
+	private IUserRoleRelService userRoleRelService;
 
 	/**
 	 * 到达用户列表页面
@@ -96,6 +103,51 @@ public class UserController {
 	}
 
 	/**
+	 * 到达给用户分配角色的页面
+	 * 
+	 * @param userId 用户id
+	 * @return
+	 */
+	@RequestMapping("/grantrole/{userId}.html")
+	public String goGrantTaskPage(@PathVariable Integer userId, Model model) {
+		/*
+		 * List<RoleTaskRelKeyDto> tasks =
+		 * roleTaskRelService.getTasksByRoleId(roleId);
+		 * model.addAttribute("tasks", arg1)
+		 */
+		return "user/grantRole";
+
+	}
+
+	/**
+	 * 给用户分配角色
+	 * 
+	 * @param roleId 角色id
+	 * @return
+	 */
+	@RequestMapping("/grantrole/{userId}")
+	@ResponseBody
+	public ResultDto grantRole(@PathVariable Integer userId, HttpServletRequest request, @RequestParam("roleIds[]") String[] roleIds) {
+		ResultDto resultDto = null;
+
+		boolean success = false;
+		try {
+			userRoleRelService.grantRole(userId, roleIds);
+			success = true;
+		} catch (Exception e) {
+			resultDto = new ResultDto("分配角色失败" + e.getMessage(), success, CommonConstant.DELETE_ERROR);
+			e.printStackTrace();
+			logger.error("UserController.grantRole--" + e.getMessage());
+		}
+		if (success) {
+			resultDto = new ResultDto("分配角色成功", success, CommonConstant.DELETE_ERROR);
+		} else {
+			resultDto = new ResultDto("分配角色失败", success, CommonConstant.DELETE_ERROR);
+		}
+		return resultDto;
+	}
+
+	/**
 	 * 获取所有的用户
 	 * 
 	 * @return 返回列表
@@ -131,7 +183,7 @@ public class UserController {
 			dto.setStatus(CommonConstant.STATUS_CHECKED);
 			success = userService.saveUser(dto);
 		} catch (Exception e) {
-			resultDto = new ResultDto("保存失败"+e.getMessage(), success, CommonConstant.SAVE_ERROR);
+			resultDto = new ResultDto("保存失败" + e.getMessage(), success, CommonConstant.SAVE_ERROR);
 			e.printStackTrace();
 			logger.error("UserController.saveUser--" + e.getMessage());
 		}
@@ -159,7 +211,7 @@ public class UserController {
 			userService.updateUser(dto);
 			success = true;
 		} catch (Exception e) {
-			resultDto = new ResultDto("更新失败"+e.getMessage(), success, CommonConstant.UPDATE_ERROR);
+			resultDto = new ResultDto("更新失败" + e.getMessage(), success, CommonConstant.UPDATE_ERROR);
 			e.printStackTrace();
 			logger.error("UserController.updateUser--" + e.getMessage());
 		}
@@ -196,6 +248,27 @@ public class UserController {
 			resultDto = new ResultDto("删除失败", success, CommonConstant.DELETE_ERROR);
 		}
 		return resultDto;
+	}
+
+	/**
+	 * 用户已经拥有的角色
+	 * 
+	 * @param userId 用户id
+	 * @return
+	 */
+	@RequestMapping("/roleList/{userId}")
+	@ResponseBody
+	public List<UserRoleRelKeyDto> getRolesByUserId(@PathVariable Integer userId) {
+		List<UserRoleRelKeyDto> roles = null;
+		try {
+			roles = userRoleRelService.getRolesByUserId(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("UserController.getRolesByUserId--" + e.getMessage());
+		}
+
+		return roles;
+
 	}
 
 	/**
