@@ -53,14 +53,23 @@ public interface IUserService {
 	public boolean saveUser(UserDto dto);
 
 	/**
-	 * 更具当前任务的角色等级查询他等级之下的用户
+	 * 根据当前任务的角色等级查询他等级之下的用户
 	 * 
 	 * @param page 第几页
 	 * @param rows 每一页的数目
 	 * @param roles 当前人拥有的角色
 	 * @return
 	 */
-	public List<User> findList(int page, int rows, List<Integer> roles);
+	public List<User> findList(int page, int rows, List<Role> roles);
+
+	/**
+	 * 查找所有的用户
+	 * 
+	 * @param page 第几页
+	 * @param rows 每一页的数目
+	 * @return
+	 */
+	public List<User> findList(int page, int rows);
 
 	/**
 	 * 

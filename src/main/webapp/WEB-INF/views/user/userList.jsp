@@ -57,7 +57,6 @@
 						Util.showMessage("请选选择要操作的行！");
 					}
 				}
-
 			},
 			dataGrid : {
 				instance : '',
@@ -69,11 +68,23 @@
 						html += '&nbsp;<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>'
 						return html;
 					};
-
+					var statusFormatter = function(value, row, index) {
+						var textdis = '';
+						if (value == Constants.STATUS_UNCHECK) {
+							textdis = "未审核";
+						} else if (value == Constants.STATUS_CHECKED) {
+							textdis = "审核通过";
+						} else if (value == Constants.STATUS_CHECK_NOPASS) {
+							textdis = "审核不通过";
+						}
+						return textdis;
+					};
 					var option = {
+						t : this,
 						id : "#table",
 						url : '/user/querylist',
 						height : $("#body").height(),
+
 						columns : [ [ {
 							field : 'ck',
 							title : 'ck',
@@ -86,7 +97,8 @@
 						}, {
 							field : 'status',
 							title : '用户状态',
-							width : 100
+							width : 100,
+							formatter : statusFormatter
 						} ] ],
 						toolbar : "#toolBar",//工具栏
 						queryParams : {},

@@ -124,11 +124,11 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<User> findList(int page, int rows, List<Integer> roles) {
+	public List<User> findList(int page, int rows) {
 		PageHelper.startPage(page, rows);
-		// TODO这个方法要在mapper中重新定义
-		// userMapper.selectUsersBy(example);
-		return null;
+		UserExample example = new UserExample();
+		List<User> users = userMapper.selectByExample(example);
+		return users;
 	}
 
 	@Override
@@ -188,5 +188,11 @@ public class UserServiceImpl implements IUserService {
 	public List<Role> findRolesByUserId(Integer id) {
 		List<Role> roles = userMapper.findRolesByUserId(id);
 		return roles;
+	}
+
+	@Override
+	public List<User> findList(int page, int rows, List<Role> roles) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

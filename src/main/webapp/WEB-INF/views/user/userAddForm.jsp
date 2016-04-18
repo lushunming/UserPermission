@@ -43,7 +43,7 @@
 				} else {
 					Util.showMessage(responseText.msg);
 				}
-			}else{
+			} else {
 				parent.callback();
 			}
 		};
@@ -82,16 +82,10 @@
 							return false;
 						},
 						rules : {
-							name : "required",
-							level : {
-								required : true,
-								digits : true,//整数
-								maxlength : 5
-							}
+							loginname : "required",
 						},
 						messages : {
-							name : "用户名不能为空",
-							level : "请输入一个整数"
+							loginname : "用户名不能为空",
 						}
 					});
 				}

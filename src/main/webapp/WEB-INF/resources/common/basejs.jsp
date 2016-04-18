@@ -20,4 +20,5 @@
 
 <script type="text/javascript" src="/resources/js/custom/DataGrid.js" charset="utf-8"></script>
 <script type="text/javascript" src="/resources/js/custom/Util.js" charset="utf-8"></script>
+<script type="text/javascript" src="/resources/js/custom/Constants.js" charset="utf-8"></script>
 

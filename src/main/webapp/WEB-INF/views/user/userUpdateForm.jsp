@@ -4,43 +4,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="/WEB-INF/resources/common/basejs.jsp"%>
-<title>角色管理</title>
+<title>用户管理</title>
 </head>
 <body>
 	<div class="container-fluid">
-		<form class="row form-horizontal margin" id="roleUpdateForm">
-			<input type="hidden" name="id" value="${role.id}">
+		<form class="row form-horizontal margin" id="userUpdateForm">
+			<input type="hidden" name="id" value="${user.id}">
 			<div class="form-group">
 				<label class="col-xs-3  control-label text-center">
-					名称：
+					用户名：
 					<span class="text-danger">*</span>
 				</label>
 				<div class="col-xs-8">
-					<input type="text" class="form-control" placeholder="名称" name="name" value="${role.name}">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3  control-label text-center">
-					角色等级：
-					<span class="text-danger">*</span>
-				</label>
-				<div class="col-xs-8">
-					<input type="text" class="form-control" placeholder="等级" name="level" value="${role.level}">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3  control-label text-center"> 描述： </label>
-				<div class="col-xs-8">
-					<textarea class="form-control" rows="3" placeholder="描述" name="description">${role.description}</textarea>
+					<input type="text" class="form-control" placeholder="用户名" name="loginname" value="${user.loginname}">
 				</div>
 			</div>
 		</form>
-		<button class="btn btn-success col-xs-offset-4" onclick="roleUpdateForm.submitForm()">提交</button>
+		<button class="btn btn-success col-xs-offset-4" onclick="userUpdateForm.submitForm()">提交</button>
 		<button class="btn btn-default" onclick="callback()">取消</button>
 	</div>
 	<script type="text/javascript">
 		$(function() {
-			roleUpdateForm.init();
+			userUpdateForm.init();
 		});
 		function callback(responseText, statusText, xhr, $form) {
 			if (responseText) {
@@ -49,17 +34,17 @@
 				} else {
 					Util.showMessage(responseText.msg);
 				}
-			}else{
+			} else {
 				parent.callback();
 			}
 		};
-		var roleUpdateForm = {
+		var userUpdateForm = {
 			init : function() {
 				var t = this;
 				t.dataGrid.init();
 			},
 			submitForm : function() {
-				$("#roleUpdateForm").submit();
+				$("#userUpdateForm").submit();
 				return false;
 			},
 			dataGrid : {
@@ -67,7 +52,7 @@
 					var option = {
 						target : '#output2', // target element(s) to be updated with server response 
 						success : callback,
-						url : "/role/update",
+						url : "/user/update",
 						type : "post",
 						dataType : "json"
 					// post-submit callback 
@@ -81,26 +66,16 @@
 					// $.ajax options can be used here too, for example: 
 					//timeout:   3000 
 					};
-					$("#roleUpdateForm").validate({
+					$("#userUpdateForm").validate({
 						submitHandler : function(form) { //验证成功后执行的
 							var t = this;
 							$(form).ajaxSubmit(option);
 						},
 						rules : {
-							name : "required",
-							level : {
-								required : true,
-								digits : true,//整数
-								maxlength : 5
-							}
+							loginname : "required",
 						},
 						messages : {
-							name : "角色名不能为空",
-							level : {
-								required : "请给角色分配一个等级",
-								digits : "请输入一个整数",
-								maxlength : "整数不能超过五位数"
-							}
+							loginname : "用户名不能为空",
 						}
 					});
 				}
