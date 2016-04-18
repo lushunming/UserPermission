@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.lu.common.MyException;
 import com.lu.dto.RoleTaskRelKeyDto;
+import com.lu.model.RoleTaskRelExample;
+import com.lu.model.RoleTaskRelExample.Criteria;
 import com.lu.model.RoleTaskRelKey;
 import com.lu.persistence.dao.RoleTaskRelMapper;
 import com.lu.service.IRoleTaskRelService;
@@ -40,7 +42,7 @@ public class RoleTaskRelServiceImpl implements IRoleTaskRelService {
 	}
 
 	@Override
-	public int saveRoleTaskRel(RoleTaskRelKeyDto dto) {
+	public int saveRoleTaskRel(RoleTaskRelKeyDto dto) throws Exception {
 		String methodName = "saveRoleTaskRel";
 		if (null == dto) {
 			logAndThrowError(methodName, "dto不能为空");
@@ -53,12 +55,19 @@ public class RoleTaskRelServiceImpl implements IRoleTaskRelService {
 	}
 
 	@Override
-	public void saveRoleTaskRelByIds(Integer roleId, String[] taskIds) {
-		String methodName = "saveRoleTaskRelByIds";
+	public void grantTask(Integer roleId, String[] taskIds) throws Exception {
+		String methodName = "grantTask";
 
 		if (roleId == null) {
 			logAndThrowError(methodName, "roleId 不能为空");
 		}
+
+		// 首先删除该角色拥有的关系
+		RoleTaskRelExample example = new RoleTaskRelExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andRoleIdEqualTo(roleId);
+		roleTaskRelMapper.deleteByExample(example);
+		// 然后保存关系
 		if (taskIds != null && taskIds.length > 0) {
 			RoleTaskRelKey record = null;
 			for (String taskId : taskIds) {
@@ -71,7 +80,12 @@ public class RoleTaskRelServiceImpl implements IRoleTaskRelService {
 	}
 
 	@Override
-	public List<RoleTaskRelKeyDto> getTasksByRoleId(Integer roleId) {
+	public List<RoleTaskRelKeyDto> getTasksByRoleId(Integer roleId) throws Exception {
+
+		String methodName = "getTasksByRoleId";
+		if (roleId == null) {
+			logAndThrowError(methodName, "roleId 不能为空");
+		}
 		List<RoleTaskRelKeyDto> tasks = roleTaskRelMapper.getTasksByRoleId(roleId);
 		return tasks;
 	}

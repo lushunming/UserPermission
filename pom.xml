@@ -210,9 +210,9 @@
 		</dependency>
 		<!-- postgresql驱动 -->
 		<dependency>
-			<groupId>org.lucee</groupId>
+			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.3-1102-jdbc4</version>
+			<version>9.3-1100-jdbc4</version>
 		</dependency>
 		<!-- 连接池 -->
 		<dependency>

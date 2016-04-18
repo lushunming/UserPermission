@@ -18,15 +18,15 @@ public interface IRoleTaskRelService {
 	 * @param dto
 	 * @return 插入条数
 	 */
-	int saveRoleTaskRel(RoleTaskRelKeyDto dto);
+	int saveRoleTaskRel(RoleTaskRelKeyDto dto) throws Exception;
 
 	/**
-	 * 保存角色和任务之间的关系
+	 * 给角色分配任务
 	 * 
 	 * @param roleId 角色id
 	 * @param taskIds 对应的任务id
 	 */
-	void saveRoleTaskRelByIds(Integer roleId, String[] taskIds);
+	void grantTask(Integer roleId, String[] taskIds)  throws Exception;
 
 	/**
 	 * 根据角色id获取她拥有的任务列表
@@ -34,5 +34,5 @@ public interface IRoleTaskRelService {
 	 * @param roleId
 	 * @return
 	 */
-	List<RoleTaskRelKeyDto> getTasksByRoleId(Integer roleId);
+	List<RoleTaskRelKeyDto> getTasksByRoleId(Integer roleId)  throws Exception;
 }

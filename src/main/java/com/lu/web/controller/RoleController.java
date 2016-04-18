@@ -233,12 +233,12 @@ public class RoleController {
 	 */
 	@RequestMapping("/granttask/{roleId}")
 	@ResponseBody
-	public ResultDto granttask(@PathVariable Integer roleId, HttpServletRequest request, @RequestParam("taskIds[]") String[] taskIds) {
+	public ResultDto grantTask(@PathVariable Integer roleId, HttpServletRequest request, @RequestParam("taskIds[]") String[] taskIds) {
 		ResultDto resultDto = null;
 
 		boolean success = false;
 		try {
-			roleTaskRelService.saveRoleTaskRelByIds(roleId, taskIds);
+			roleTaskRelService.grantTask(roleId, taskIds);
 			success = true;
 		} catch (Exception e) {
 			resultDto = new ResultDto("分配任务失败" + e.getMessage(), success, CommonConstant.DELETE_ERROR);
