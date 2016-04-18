@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -29,14 +30,16 @@ public class MyRealm extends AuthorizingRealm {
 	@Resource
 	private IUserRoleRelService userRoleRelService;
 
+	private Logger log = Logger.getLogger(MyRealm.class);
+
 	/**
 	 * 获取授权信息
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
-		MyPrincipal principal=	(MyPrincipal) arg0.getPrimaryPrincipal();
-		SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
-		//String loginName=principal.getLoginName();
+		MyPrincipal principal = (MyPrincipal) arg0.getPrimaryPrincipal();
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		// String loginName=principal.getLoginName();
 		return info;
 	}
 
@@ -56,7 +59,10 @@ public class MyRealm extends AuthorizingRealm {
 			return null;
 		}
 		List<Role> roles = userService.findRolesByUserId(user.getId());
-		
+		log.debug("roles size"+roles.size());
+		for (Role role : roles) {
+			log.debug("role "+role.getName());
+		}
 		//TODO
 		MyPrincipal principal=new MyPrincipal(user,roles);
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, user.getPassword(),getName());

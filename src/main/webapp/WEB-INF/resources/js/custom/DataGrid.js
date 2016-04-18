@@ -14,7 +14,7 @@ var DataGrid = function(option) {
 		fitColumns : true,
 		fit : true,
 		autoRowHeight : true,
-		fitColumns : true
+		fitColumns : true,
 	};
 
 	var newOption = $.extend({}, defaultOption, option);
@@ -23,9 +23,10 @@ var DataGrid = function(option) {
 	};
 	self.selectRow = function(index) {
 		$(option.id).datagrid("selectRow", index);
-	}
+	};
 	self.getChecked = function() {
 		return $(option.id).datagrid("getChecked");
-	}
+	};
+	
 	$(option.id).datagrid(newOption);
 };
