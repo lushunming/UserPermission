@@ -1,6 +1,8 @@
 package com.lu.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -191,8 +193,12 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<User> findList(int page, int rows, List<Role> roles) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<User> findListLowLevel(int page, int rows, List<Role> roles, Integer id) {
+		PageHelper.startPage(page, rows);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("roles", roles);
+		List<User> users = userMapper.findListLowLevel(map);
+		return users;
 	}
 }

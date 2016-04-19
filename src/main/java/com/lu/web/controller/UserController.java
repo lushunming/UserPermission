@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,8 @@ import com.lu.common.CommonConstant;
 import com.lu.dto.ResultDto;
 import com.lu.dto.UserDto;
 import com.lu.dto.UserRoleRelKeyDto;
+import com.lu.model.MyPrincipal;
+import com.lu.model.Role;
 import com.lu.model.User;
 import com.lu.service.IUserRoleRelService;
 import com.lu.service.IUserService;
@@ -161,6 +165,27 @@ public class UserController {
 		 * principal.getRoles();
 		 */
 		List<User> users = userService.findList(page, rows);
+		PageInfo<User> userPage = new PageInfo<User>(users);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("total", userPage.getTotal());
+		result.put("rows", users);
+		return result;
+	}
+
+	/**
+	 * 获取角色等级低于自己所有的用户
+	 * 
+	 * @return 返回列表
+	 */
+	@RequestMapping("/querylowlist")
+	@ResponseBody
+	public Map<String, Object> queryUsersLowLevel(int page, int rows) {
+
+		Subject user = SecurityUtils.getSubject();
+		MyPrincipal principal = (MyPrincipal) user.getPrincipal();
+		List<Role> roles = principal.getRoles();
+
+		List<User> users = userService.findListLowLevel(page, rows,roles,principal.getUser().getId());
 		PageInfo<User> userPage = new PageInfo<User>(users);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("total", userPage.getTotal());

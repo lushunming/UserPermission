@@ -1,6 +1,7 @@
 package com.lu.persistence.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -104,4 +105,11 @@ public interface UserMapper {
 	 * @return
 	 */
 	List<Role> findRolesByUserId(Integer id);
+
+	/**
+	 * 查找等级比自己低的用户
+	 * @param map
+	 * @return
+	 */
+	List<User> findListLowLevel(Map<String, Object> map);
 }

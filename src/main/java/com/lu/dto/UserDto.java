@@ -15,5 +15,6 @@ public class UserDto extends User {
 	 * 
 	 */
 	private static final long serialVersionUID = 7010161204199573504L;
+	
 
 }

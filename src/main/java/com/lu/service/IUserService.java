@@ -58,9 +58,10 @@ public interface IUserService {
 	 * @param page 第几页
 	 * @param rows 每一页的数目
 	 * @param roles 当前人拥有的角色
+	 * @param id 主键id
 	 * @return
 	 */
-	public List<User> findList(int page, int rows, List<Role> roles);
+	public List<User> findListLowLevel(int page, int rows, List<Role> roles,Integer id);
 
 	/**
 	 * 查找所有的用户
