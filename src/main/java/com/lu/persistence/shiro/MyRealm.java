@@ -8,7 +8,9 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -52,20 +54,21 @@ public class MyRealm extends AuthorizingRealm {
 		User user = userService.findUserByUserName(token.getUsername());
 		// 账号不存在
 		if (user == null) {
-			return null;
+			throw new UnknownAccountException();// 没找到帐号
 		}
 		// 账号未审核或者是审核不通过
 		if (user.getStatus().equals(CommonConstant.STATUS_CHECK_NOPASS) || user.getStatus().equals(CommonConstant.STATUS_UNCHECK)) {
-			return null;
+
+			throw new LockedAccountException(); // 帐号锁定
 		}
 		List<Role> roles = userService.findRolesByUserId(user.getId());
-		log.debug("roles size"+roles.size());
+		log.debug("roles size" + roles.size());
 		for (Role role : roles) {
-			log.debug("role "+role.getName());
+			log.debug("role " + role.getName());
 		}
-		//TODO
-		MyPrincipal principal=new MyPrincipal(user,roles);
-		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, user.getPassword(),getName());
+		// TODO
+		MyPrincipal principal = new MyPrincipal(user, roles);
+		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, user.getPassword(), getName());
 		return info;
 	}
 }
