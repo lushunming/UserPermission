@@ -22,7 +22,7 @@
 		});
 		function callback(result) {
 			if (result.success) {
-				window.location="/main";
+				window.location="/main/main.html";
 			} else {
 				$.messager.show({
 					title : '提交信息',

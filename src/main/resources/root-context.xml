@@ -72,9 +72,9 @@
 		<!-- 默认的登陆访问url -->
 		<property name="loginUrl" value="/account/login.html" />
 		<!-- 登陆成功后跳转的url -->
-		<property name="successUrl" value="/index" />
+		<property name="successUrl" value="/main/main.html" />
 		<!-- 没有权限跳转的url -->
-		<property name="unauthorizedUrl" value="/unauth" />
+		<property name="unauthorizedUrl" value="/account/login.html" />
 		<property name="filterChainDefinitions">
 			<value>
 				/resources/** = anon <!-- 不需要认证 -->

@@ -119,7 +119,13 @@ public class TaskController {
 	@RequestMapping("/queryalllist")
 	@ResponseBody
 	public List<Task> queryTaskListWithoutPage() {
-		List<Task> tasks = taskService.findList();
+		List<Task> tasks = null;
+		try {
+			tasks = taskService.findList();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return tasks;
 	}

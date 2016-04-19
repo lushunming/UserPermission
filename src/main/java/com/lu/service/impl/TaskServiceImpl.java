@@ -119,9 +119,15 @@ public class TaskServiceImpl implements ITaskService {
 	}
 
 	@Override
-	public List<Task> findList() {
+	public List<Task> findList() throws Exception{
 		TaskExample example = new TaskExample();
 		List<Task> tasks = taskMapper.selectByExample(example);
+		return tasks;
+	}
+
+	@Override
+	public List<TaskDto> getTasksByUser(Integer id) throws Exception{
+		List<TaskDto> tasks = taskMapper.getTasksByUser(id);
 		return tasks;
 	}
 

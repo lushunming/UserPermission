@@ -61,7 +61,16 @@ public interface ITaskService {
 	 * 获取所有的任务（不分页）
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
-	public List<Task> findList();
+	public List<Task> findList() throws Exception;
+
+	/**
+	 * 根据用户的id获相关的任务
+	 * @param id  用户id
+	 * @throws Exception 
+	 * @return 
+	 */
+	public List<TaskDto> getTasksByUser(Integer id) throws Exception;
 
 }

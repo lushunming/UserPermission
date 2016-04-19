@@ -29,6 +29,8 @@ public class CommonConstant {
 	public static final Integer LOGIN_FAILED = 8;
 	/** 登录成功 */
 	public static final Integer LOGIN_SUCCESS = 9;
+	/** 登出成功 */
+	public static final Integer LOGOUT_SUCCESS = 10;
 
 	// ---------------------------操作结果码end-----------------------------------------
 	// ---------------------------用户状态start-----------------------------------------

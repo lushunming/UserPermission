@@ -81,4 +81,17 @@ public class AccountController {
 		return new ResultDto("登录成功", true, CommonConstant.LOGIN_SUCCESS);
 
 	}
+
+	/**
+	 * 登出
+	 * 
+	 * @return 操作的结果
+	 */
+	@RequestMapping("/logout")
+	@ResponseBody
+	public ResultDto logout() {
+		Subject user = SecurityUtils.getSubject();
+		user.logout();
+		return new ResultDto("退出系统成功", true, CommonConstant.LOGOUT_SUCCESS);
+	}
 }
