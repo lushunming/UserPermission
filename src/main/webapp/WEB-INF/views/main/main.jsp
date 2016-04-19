@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="/WEB-INF/resources/common/basejs.jsp"%>
-<title>任务管理</title>
+<title>权限管理系统</title>
 </head>
 
 <!-- <body class="easyui-layout">
