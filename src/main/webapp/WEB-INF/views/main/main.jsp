@@ -60,7 +60,6 @@
 					add(node.url);
 				}
 			});
-
 		}
 		//添加一个选项卡面板 
 		function addTabs(title, icon) {
