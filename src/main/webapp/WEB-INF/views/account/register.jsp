@@ -34,14 +34,10 @@
 		});
 		function callback(result) {
 			if (result.success) {
-				window.location = "/main/main.html";
+				Util.showMessage(result.msg);
+				setTimeout('window.location = "/account/login.html"', 3000);
 			} else {
-				$.messager.show({
-					title : '提交信息',
-					msg : result.msg,
-					timeout : 5000,
-					showType : 'slide'
-				});
+				Util.showMessage(result.msg)
 			}
 		};
 		var registerForm = {
@@ -79,7 +75,7 @@
 							required : true,
 							minlength : 6,
 							equalTo : "#password"
-						},
+						}
 					},
 					messages : {
 						loginname : "用户名不能为空",
@@ -91,7 +87,7 @@
 							required : "请输入密码",
 							minlength : "密码长度不能小于 6 个字母",
 							equalTo : "两次密码输入不一致"
-						},
+						}
 					}
 				});
 			}

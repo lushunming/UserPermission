@@ -3,71 +3,76 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>登录</title>
+<title>修改密码</title>
 <%@include file="/WEB-INF/resources/common/basejs.jsp"%>
 </head>
 <body>
 	<div class="container">
-		<form class="row col-md-4 col-md-offset-4" id="loginform" >
-			<h2 class="">请登录</h2>
-			<label for="loginName" class="sr-only">登录名</label> <input type="text" name="loginName" class="form-control" placeholder="请输入登录名" required autofocus> <label for="password" class="sr-only">密码</label> <input type="password" name="password" class="form-control" placeholder="请输入密码" required>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+		<form class="row col-md-4 col-md-offset-4" id="changePasswordForm">
+			<div class="form-group">
+				<label for="password">新密码</label>
+				<input type="password" id="password" name="password" class="form-control" placeholder="请输入密码">
+			</div>
+			<div class="form-group">
+				<label for="password">确认密码</label>
+				<input type="password" name="confirm_password" class="form-control" placeholder="请重新输入密码">
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">确认</button>
 		</form>
 	</div>
 	<!-- /container -->
 	<script type="text/javascript">
 		$(function() {
-			loginform.init();
-
+			changePasswordForm.init();
 		});
 		function callback(result) {
 			if (result.success) {
-				window.location="/main/main.html";
+				//	window.location = "/main/main.html";
+			
+				Util.showMessage(result.msg);
+				setTimeout("window.close()", 3000);
 			} else {
-				$.messager.show({
-					title : '提交信息',
-					msg : result.msg,
-					timeout : 5000,
-					showType : 'slide'
-				});
+				Util.showMessage(result.msg);
 			}
 		};
-		var loginform = {
-
+		var changePasswordForm = {
 			init : function() {
 				var option = {
 					target : '#output2', // target element(s) to be updated with server response 
 					success : callback,
-					url:"/account/login",
-					type:"post",
-					dataType:"json"
-				// post-submit callback 
-				// other available options: 
-				//url:       url         // override for form's 'action' attribute 
-				//type:      type        // 'get' or 'post', override for form's 'method' attribute 
-				//dataType:  null        // 'xml', 'script', or 'json' (expected server response type) 
-				//clearForm: true        // clear all form fields after successful submit 
-				//resetForm: true        // reset the form after successful submit 
-
-				// $.ajax options can be used here too, for example: 
-				//timeout:   3000 
+					url : "/account/password/change",
+					type : "post",
+					dataType : "json"
 				};
-				$("#loginform").validate({
+				$("#changePasswordForm").validate({
 					submitHandler : function(form) { //验证成功后执行的
 						var t = this;
 						$(form).ajaxSubmit(option);
 					},
 					rules : {
-						loginName : "required",
-						password : "required"
+						password : {
+							required : true,
+							minlength : 6
+						},
+						confirm_password : {
+							required : true,
+							minlength : 6,
+							equalTo : "#password"
+						}
 					},
 					messages : {
-						loginName : "登录名不能为空",
-						password : "密码不能为空"
+						password : {
+							required : "请输入密码",
+							minlength : "密码长度不能小于6 个字母"
+						},
+						confirm_password : {
+							required : "请输入密码",
+							minlength : "密码长度不能小于 6 个字母",
+							equalTo : "两次密码输入不一致"
+						}
 					}
 				});
 			}
-
 		};
 	</script>
 </body>

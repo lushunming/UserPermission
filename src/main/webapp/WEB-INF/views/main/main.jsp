@@ -6,54 +6,18 @@
 <%@include file="/WEB-INF/resources/common/basejs.jsp"%>
 <title>权限管理系统</title>
 </head>
-
-<!-- <body class="easyui-layout">
-	头部标题
-	<div data-options="region:'north',border:false" style="height: 60px; padding: 5px; background: #E0ECFF">
-		<span class="northTitle">后台管理系统模板</span> <span class="loginInfo">登录用户：admin&nbsp;&nbsp;姓名：管理员&nbsp;&nbsp;角色：系统管理员</span>
-	</div>
-	页脚信息
-	<div data-options="region:'south',border:false" style="height: 20px; background: #E6EEF8; padding: 2px; vertical-align: middle;">
-		<span id="sysVersion">系统版本：V1.0</span> <span id="nowTime"></span>
-	</div>
-
-	西左
-	<div data-options="region:'west',title:'West',split:true,collapsible:false" style="width: 200px;">
-		<div id="aa" class="easyui-accordion">
-			<div title="Title1">
-				<a onclick="addTabs()">click</a>
-			</div>
-			<div title="Title2">content2</div>
-			<div title="Title3">content3</div>
-		</div>
-	</div>
-	内容tabs
-	<div id="center" data-options="region:'center'">
-		<div id="tabs" class="easyui-tabs" border="false" fit="true">
-			<div title="首页" style="padding: 5px; display: block;">
-				<p>模板说明：</p>
-				<ul>
-					<li>主界面使用 easyui1.3.5</li>
-					<li>导航树使用 JQuery-zTree-v3.5.15</li>
-				</ul>
-				<p>特性说明：</p>
-				<ul>
-					<li>所有弹出框均显示在顶级父窗口</li>
-					<li>修改easyui window拖动，移动时显示窗口而不显示虚线框，并限制拖动范围</li>
-				</ul>
-			</div>
-		</div>
-	</div> -->
 <body class="easyui-layout" data-options="fit : true,border : false">
 	<div region="north" border="true" split="true" style="overflow: hidden; height: 80px;">
 		<div class="row">
-			<span class="col-md-4">后台管理系统模板</span>
+			<span class="col-md-4">任务权限管理系统</span>
 			<span class="col-md-offset-7 margin-top">
 				<a href="#" class="easyui-menubutton" data-options="menu:'#mm1',iconCls:'icon-edit'">${user.user.loginname}</a>
 			</span>
 		</div>
 		<div id="mm1" style="width: 150px;">
-			<div data-options="iconCls:'icon-undo'">修改密码</div>
+			<div data-options="iconCls:'icon-undo'">
+				<a href="/account/password/change.html" target="_blank">修改密码</a>
+			</div>
 			<div data-options="iconCls:'icon-redo'" onclick="logout()">退出</div>
 
 		</div>
@@ -114,7 +78,7 @@
 			}
 		}
 		function createFrame(url) {
-			var s = '<iframe name="mainFrame" scrolling="no" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
+			var s = '<iframe name="mainFrame" scrolling="no" frameborder="0"  src="' + url + '" style="width:100%;height:100%;">_$tag____';
 			return s;
 		}
 		function add(url) {

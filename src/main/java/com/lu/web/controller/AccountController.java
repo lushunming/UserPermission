@@ -1,5 +1,7 @@
 package com.lu.web.controller;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lu.common.CommonConstant;
 import com.lu.dto.ResultDto;
 import com.lu.dto.UserDto;
+import com.lu.model.MyPrincipal;
+import com.lu.service.IUserService;
 
 /**
  * 用户账号控制器 主要是用户的登录登出等操作。
@@ -30,6 +34,9 @@ import com.lu.dto.UserDto;
 public class AccountController {
 	/** 登录logger */
 	private Logger logger = Logger.getLogger(AccountController.class);
+	/** 用户service */
+	@Resource
+	private IUserService userService;
 
 	/**
 	 * 获取login界面
@@ -123,10 +130,26 @@ public class AccountController {
 	 */
 	@RequestMapping("/password/change")
 	@ResponseBody
-	public ResultDto changePassword() {
+	public ResultDto changePassword(String password) {
+		ResultDto resultDto = null;
+		boolean success = false;
 		Subject user = SecurityUtils.getSubject();
-		user.logout();
-		return new ResultDto("退出系统成功", true, CommonConstant.LOGOUT_SUCCESS);
+		MyPrincipal principal = (MyPrincipal) user.getPrincipal();
+		Integer id = principal.getUser().getId();
+		UserDto dto;
+		try {
+			dto = userService.selectUserById(id);
+			dto.setPassword(password);
+			userService.updateUser(dto);
+			success = true;
+			resultDto = new ResultDto("修改密码成功", success, CommonConstant.UPDATE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultDto = new ResultDto("修改密码失败" + e.getMessage(), success, CommonConstant.UPDATE_ERROR);
+			logger.error("修改密码失败" + e.getMessage(), e);
+		}
+
+		return resultDto;
 	}
 
 	/**
@@ -137,11 +160,19 @@ public class AccountController {
 	@RequestMapping("/register")
 	@ResponseBody
 	public ResultDto register(UserDto dto) {
+		ResultDto resultDto = null;
+		boolean success = false;
 
-		
-		
-		
-		
-		return new ResultDto("退出系统成功", true, CommonConstant.LOGOUT_SUCCESS);
+		try {
+			dto.setStatus(CommonConstant.STATUS_UNCHECK);
+			userService.insertUser(dto);
+			success = true;
+			resultDto = new ResultDto("注册成功", success, CommonConstant.SAVE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("注册失败" + e.getMessage(), e);
+			resultDto = new ResultDto("注册失败" + e.getMessage(), success, CommonConstant.SAVE_ERROR);
+		}
+		return resultDto;
 	}
 }
