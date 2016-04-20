@@ -29,13 +29,13 @@ public class UserServiceImpl implements IUserService {
 	private @Resource UserMapper userMapper;
 
 	@Override
-	public Integer insertUser(UserDto dto) {
+	public Integer insertUser(UserDto dto) throws Exception{
 		int id = userMapper.insert(dto);
 		return id;
 	}
 
 	@Override
-	public User findUserByUserName(String userName) {
+	public User findUserByUserName(String userName) throws Exception{
 		String methodName = "findUserByUserName";
 		if (StringUtils.isEmpty(userName)) {
 			logAndThrowError(methodName, "用户名不能为空");
@@ -52,7 +52,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void deleteUser(Integer id) {
+	public void deleteUser(Integer id) throws Exception {
 		String methodName = "deleteUser";
 		if (id == null) {
 			logAndThrowError(methodName, "id不能为空");
@@ -63,7 +63,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void updateUser(UserDto dto) {
+	public void updateUser(UserDto dto) throws Exception{
 		String methodName = "updateUser";
 		if (null == dto) {
 			logAndThrowError(methodName, "dto为空");
@@ -92,13 +92,13 @@ public class UserServiceImpl implements IUserService {
 	 * @param id
 	 * @return
 	 */
-	private boolean checkIfExists(String loginname, Integer id) {
+	private boolean checkIfExists(String loginname, Integer id) throws Exception{
 		// TODO
 		return false;
 	}
 
 	@Override
-	public boolean saveUser(UserDto dto) {
+	public boolean saveUser(UserDto dto) throws Exception {
 		String methodName = "saveUser";
 		if (null == dto) {
 			logAndThrowError(methodName, "dto为空");
@@ -126,7 +126,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<User> findList(int page, int rows) {
+	public List<User> findList(int page, int rows) throws Exception{
 		PageHelper.startPage(page, rows);
 		UserExample example = new UserExample();
 		List<User> users = userMapper.selectByExample(example);
@@ -134,7 +134,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public UserDto selectUserById(Integer id) {
+	public UserDto selectUserById(Integer id) throws Exception{
 		String methodName = "selectUserById";
 		if (null == id) {
 			logAndThrowError(methodName, "用户id不能为空");
@@ -147,7 +147,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void vetUser(Integer id, Integer status) {
+	public void vetUser(Integer id, Integer status) throws Exception{
 		String methodName = "vetUser";
 		if (null == id) {
 			logAndThrowError(methodName, "用户id不能为空");
@@ -187,13 +187,13 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<Role> findRolesByUserId(Integer id) {
+	public List<Role> findRolesByUserId(Integer id) throws Exception{
 		List<Role> roles = userMapper.findRolesByUserId(id);
 		return roles;
 	}
 
 	@Override
-	public List<User> findListLowLevel(int page, int rows, List<Role> roles, Integer id) {
+	public List<User> findListLowLevel(int page, int rows, List<Role> roles, Integer id) throws Exception{
 		PageHelper.startPage(page, rows);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
@@ -201,4 +201,5 @@ public class UserServiceImpl implements IUserService {
 		List<User> users = userMapper.findListLowLevel(map);
 		return users;
 	}
+
 }

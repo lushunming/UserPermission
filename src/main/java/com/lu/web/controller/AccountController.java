@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lu.common.CommonConstant;
 import com.lu.dto.ResultDto;
+import com.lu.dto.UserDto;
 
 /**
  * 用户账号控制器 主要是用户的登录登出等操作。
@@ -38,6 +39,26 @@ public class AccountController {
 	@RequestMapping("/login.html")
 	public String gotoLogin() {
 		return "account/login";
+	}
+
+	/**
+	 * 获取注册界面
+	 * 
+	 * @return 注册界面
+	 */
+	@RequestMapping("/register.html")
+	public String goToRegister() {
+		return "account/register";
+	}
+
+	/**
+	 * 获取修改密码的页面
+	 * 
+	 * @return 注册界面
+	 */
+	@RequestMapping("/password/change.html")
+	public String goToChangePassword() {
+		return "account/changepassword";
 	}
 
 	/**
@@ -92,6 +113,35 @@ public class AccountController {
 	public ResultDto logout() {
 		Subject user = SecurityUtils.getSubject();
 		user.logout();
+		return new ResultDto("退出系统成功", true, CommonConstant.LOGOUT_SUCCESS);
+	}
+
+	/**
+	 * 修改密码
+	 * 
+	 * @return 操作的结果
+	 */
+	@RequestMapping("/password/change")
+	@ResponseBody
+	public ResultDto changePassword() {
+		Subject user = SecurityUtils.getSubject();
+		user.logout();
+		return new ResultDto("退出系统成功", true, CommonConstant.LOGOUT_SUCCESS);
+	}
+
+	/**
+	 * 注册用户
+	 * 
+	 * @return 操作的结果
+	 */
+	@RequestMapping("/register")
+	@ResponseBody
+	public ResultDto register(UserDto dto) {
+
+		
+		
+		
+		
 		return new ResultDto("退出系统成功", true, CommonConstant.LOGOUT_SUCCESS);
 	}
 }

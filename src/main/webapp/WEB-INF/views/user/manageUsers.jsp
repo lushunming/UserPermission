@@ -11,13 +11,6 @@
 	<div data-options="region:'center',fit:true" style="overflow: hidden;">
 		<table id="table" data-options="fit:true,border:false"></table>
 	</div>
-
-	<div id="toolBar">
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="userList.operation('Add')">增加</a>
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="userList.operation('Delete')">删除</a>
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="userList.operation('Update')">更新</a>
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="userList.operation('View')">查看</a>
-	</div>
 	<div id="myWindow"></div>
 	<script type="text/javascript">
 		$(function() {
@@ -38,34 +31,21 @@
 			},
 			operation : function(mode, value) {
 				var row = $('#table').datagrid('getSelected');
-				if (mode == "Add") { //添加
-					Util.openWin("新增用户", '/user/add.html');
-				} else { //增删改
-					if (row) {
-						if (mode == "Delete") {
-							var url = "/user/delete/" + row.id;
-							Util.callAjax(url, {}, function(data) {
+
+				if (row) {
+					if (mode == "Grant") {
+						Util.openWin("分配角色", "/user/grantrole/" + row.id + ".html");
+					} else if (mode == "Check") {
+						Util.callAjax("/user/checkuser/" + row.id, {
+							status : value
+						}, function(data) {
+							if (data.success) {
 								userList.dataGrid.instance.reload();
-								Util.showMessage(data.msg);
-							});
-						} else if (mode == "Update") {
-							Util.openWin("更新用户", '/user/update/' + row.id + '.html');
-						} else if (mode == "View") {
-							Util.openWin("查看用户", "/user/view/" + row.id + ".html");
-						} else if (mode == "Grant") {
-							Util.openWin("分配角色", "/user/grantrole/" + row.id + ".html");
-						} else if (mode == "Check") {
-							Util.callAjax("/user/checkuser/" + row.id, {
-								status : value
-							}, function(data) {
-								if (data.success) { //操作成功就刷新一下列表
-									userList.dataGrid.instance.reload();
-								}
-							});
-						}
-					} else {
-						Util.showMessage("请选选择要操作的行！");
+							}
+						});
 					}
+				} else {
+					Util.showMessage("请选选择要操作的行！");
 				}
 			},
 			dataGrid : {
@@ -74,7 +54,7 @@
 					var t = this;
 					var operationFormatter = function(val, row, index) {
 						var html = '';
-						html += '<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="userList.dataGrid.selectrow(' + index + ');userList.operation(\'Grant\');">分配角色</a>'
+						html += '<a href="javascript:void(0);" class="easyui-linkbutton"  plain="true" onclick="userList.dataGrid.selectrow(' + index + ');userList.operation(\'Grant\');"><u>分配角色</u></a>'
 						if (row.status == Constants.STATUS_UNCHECK) {
 							html += '   <a href="javascript:void(0);" class="easyui-linkbutton"  plain="true" onclick="userList.dataGrid.selectrow(' + index + ');userList.operation(\'Check\',' + Constants.STATUS_CHECKED + ');"><u>审核通过</u></a>'
 							html += '   <a href="javascript:void(0);" class="easyui-linkbutton"  plain="true" onclick="userList.dataGrid.selectrow(' + index + ');userList.operation(\'Check\',' + Constants.STATUS_CHECK_NOPASS + ');"><u>审核不通过</u></a>'
@@ -83,6 +63,7 @@
 						} else if (row.status == Constants.STATUS_CHECKED) {
 							html += '   <a href="javascript:void(0);" class="easyui-linkbutton"  plain="true" onclick="userList.dataGrid.selectrow(' + index + ');userList.operation(\'Check\',' + Constants.STATUS_CHECK_NOPASS + ');"><u>审核不通过</u></a>'
 						}
+
 						return html;
 					};
 					var statusFormatter = function(value, row, index) {
@@ -102,7 +83,7 @@
 					var option = {
 						t : this,
 						id : "#table",
-						url : '/user/querylist',
+						url : '/user/querylowlist',
 						height : $("#body").height(),
 
 						columns : [ [ {

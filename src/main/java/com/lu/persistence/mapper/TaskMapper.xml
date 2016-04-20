@@ -186,6 +186,7 @@
 	<select id="getTasksByUser" parameterType="java.lang.Integer"
 		resultType="com.lu.dto.TaskDto">
 		SELECT
+		DISTINCT
 		task.description,
 		task."name",
 		task.url

@@ -8,12 +8,9 @@
 </head>
 <body>
 	<div class="container">
-		<form class="row col-md-4 col-md-offset-4" id="loginform">
+		<form class="row col-md-4 col-md-offset-4" id="loginform" >
 			<h2 class="">请登录</h2>
-			<label for="loginName">登录名</label>
-			<input type="text" name="loginName" class="form-control" placeholder="请输入登录名" required autofocus>
-			<label for="password">密码</label>
-			<input type="password" name="password" class="form-control" placeholder="请输入密码" required>
+			<label for="loginName" class="sr-only">登录名</label> <input type="text" name="loginName" class="form-control" placeholder="请输入登录名" required autofocus> <label for="password" class="sr-only">密码</label> <input type="password" name="password" class="form-control" placeholder="请输入密码" required>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
 		</form>
 	</div>
@@ -21,10 +18,11 @@
 	<script type="text/javascript">
 		$(function() {
 			loginform.init();
+
 		});
 		function callback(result) {
 			if (result.success) {
-				window.location = "/main/main.html";
+				window.location="/main/main.html";
 			} else {
 				$.messager.show({
 					title : '提交信息',
@@ -40,9 +38,9 @@
 				var option = {
 					target : '#output2', // target element(s) to be updated with server response 
 					success : callback,
-					url : "/account/login",
-					type : "post",
-					dataType : "json"
+					url:"/account/login",
+					type:"post",
+					dataType:"json"
 				// post-submit callback 
 				// other available options: 
 				//url:       url         // override for form's 'action' attribute 

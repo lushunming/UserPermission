@@ -51,7 +51,13 @@ public class MyRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken arg0) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) arg0;
-		User user = userService.findUserByUserName(token.getUsername());
+		User user = null;
+		try {
+			user = userService.findUserByUserName(token.getUsername());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// 账号不存在
 		if (user == null) {
 			throw new UnknownAccountException();// 没找到帐号
@@ -61,7 +67,13 @@ public class MyRealm extends AuthorizingRealm {
 
 			throw new LockedAccountException(); // 帐号锁定
 		}
-		List<Role> roles = userService.findRolesByUserId(user.getId());
+		List<Role> roles = null;
+		try {
+			roles = userService.findRolesByUserId(user.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		log.debug("roles size" + roles.size());
 		for (Role role : roles) {
 			log.debug("role " + role.getName());

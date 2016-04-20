@@ -79,6 +79,7 @@
 			<value>
 				/resources/** = anon <!-- 不需要认证 -->
 				/account/login.html = anon
+				/account/register.html = anon
 				/account/login = anon
 				/** = authc <!-- 需要认证 -->
 				<!-- /** = anon -->

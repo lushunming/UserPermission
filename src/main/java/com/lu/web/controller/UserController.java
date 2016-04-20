@@ -57,6 +57,16 @@ public class UserController {
 	}
 
 	/**
+	 * 到达用户管理界面（除了管理员使用的页面包括授权和审核用户的信息）
+	 * 
+	 * @return 页面
+	 */
+	@RequestMapping("/manage.html")
+	public String gotoManageUsers() {
+		return "user/manageUsers";
+	}
+
+	/**
 	 * 到达用户新增
 	 * 
 	 * @return 页面
@@ -164,7 +174,13 @@ public class UserController {
 		 * (MyPrincipal) user.getPrincipal(); List<Role> roles =
 		 * principal.getRoles();
 		 */
-		List<User> users = userService.findList(page, rows);
+		List<User> users = null;
+		try {
+			users = userService.findList(page, rows);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
 		PageInfo<User> userPage = new PageInfo<User>(users);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("total", userPage.getTotal());
@@ -185,7 +201,13 @@ public class UserController {
 		MyPrincipal principal = (MyPrincipal) user.getPrincipal();
 		List<Role> roles = principal.getRoles();
 
-		List<User> users = userService.findListLowLevel(page, rows,roles,principal.getUser().getId());
+		List<User> users = null;
+		try {
+			users = userService.findListLowLevel(page, rows, roles, principal.getUser().getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
 		PageInfo<User> userPage = new PageInfo<User>(users);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("total", userPage.getTotal());
@@ -310,4 +332,28 @@ public class UserController {
 		return true;
 	}
 
+	/**
+	 * 审核用户
+	 * 
+	 * @param id 用户id
+	 * @param status 用户状态
+	 * @return
+	 */
+	@RequestMapping("/checkuser/{id}")
+	@ResponseBody
+	public ResultDto checkUser(@PathVariable Integer id, Integer status) {
+		UserDto userDto = new UserDto();
+		ResultDto dto = null;
+		boolean success = false;
+		try {
+			success = true;
+			dto = new ResultDto("操作成功", success, CommonConstant.UPDATE_SUCCESS);
+			userService.vetUser(id, status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+			dto = new ResultDto("操作失败：" + e.getMessage(), success, CommonConstant.UPDATE_ERROR);
+		}
+		return dto;
+	}
 }
