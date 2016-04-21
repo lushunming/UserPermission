@@ -69,7 +69,7 @@ public class TaskController {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			logger.error("TaskController.gotoUpdate--" + e.getMessage());
+			logger.error("TaskController.gotoUpdate--" + e.getMessage(), e);
 		}
 		model.addAttribute("task", dto);
 		return "task/taskUpdateForm";
@@ -89,7 +89,7 @@ public class TaskController {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			logger.error("TaskController.gotoView--" + e.getMessage());
+			logger.error("TaskController.gotoView--" + e.getMessage(), e);
 		}
 		model.addAttribute("task", dto);
 		return "task/taskViewForm";
@@ -123,10 +123,9 @@ public class TaskController {
 		try {
 			tasks = taskService.findList();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
-
 		return tasks;
 	}
 
@@ -144,9 +143,9 @@ public class TaskController {
 		try {
 			success = taskService.saveTask(dto);
 		} catch (Exception e) {
-			resultDto = new ResultDto("保存失败", success, CommonConstant.SAVE_ERROR);
+			resultDto = new ResultDto("保存失败" + e.getMessage(), success, CommonConstant.SAVE_ERROR);
 			e.printStackTrace();
-			logger.error("TaskController.saveTask--" + e.getMessage());
+			logger.error("TaskController.saveTask--" + e.getMessage(), e);
 		}
 		if (success) {
 			resultDto = new ResultDto("保存成功", success, CommonConstant.SAVE_SUCCESS);
@@ -172,9 +171,9 @@ public class TaskController {
 			taskService.updateTask(dto);
 			success = true;
 		} catch (Exception e) {
-			resultDto = new ResultDto("更新失败", success, CommonConstant.UPDATE_ERROR);
+			resultDto = new ResultDto("更新失败"+e.getMessage(), success, CommonConstant.UPDATE_ERROR);
 			e.printStackTrace();
-			logger.error("TaskController.updateTask--" + e.getMessage());
+			logger.error("TaskController.updateTask--" + e.getMessage(),e);
 		}
 		if (success) {
 			resultDto = new ResultDto("更新成功", success, CommonConstant.UPDATE_SUCCESS);
@@ -199,7 +198,7 @@ public class TaskController {
 			taskService.deleteTask(id);
 			success = true;
 		} catch (Exception e) {
-			resultDto = new ResultDto("删除失败", success, CommonConstant.DELETE_ERROR);
+			resultDto = new ResultDto("删除失败"+e.getMessage(), success, CommonConstant.DELETE_ERROR);
 			e.printStackTrace();
 			logger.error("TaskController.deleteTask--" + e.getMessage());
 		}

@@ -76,7 +76,7 @@ public class RoleController {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			logger.error("RoleController.gotoUpdate--" + e.getMessage());
+			logger.error("RoleController.gotoUpdate--" + e.getMessage(), e);
 		}
 		model.addAttribute("role", dto);
 		return "role/roleUpdateForm";
@@ -96,7 +96,7 @@ public class RoleController {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			logger.error("RoleController.gotoView--" + e.getMessage());
+			logger.error("RoleController.gotoView--" + e.getMessage(), e);
 		}
 		model.addAttribute("role", dto);
 		return "role/roleViewForm";
@@ -146,7 +146,7 @@ public class RoleController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("保存失败", success, CommonConstant.SAVE_ERROR);
 			e.printStackTrace();
-			logger.error("RoleController.saveRole--" + e.getMessage());
+			logger.error("RoleController.saveRole--" + e.getMessage(), e);
 		}
 		if (success) {
 			resultDto = new ResultDto("保存成功", success, CommonConstant.SAVE_SUCCESS);
@@ -174,7 +174,7 @@ public class RoleController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("更新失败", success, CommonConstant.UPDATE_ERROR);
 			e.printStackTrace();
-			logger.error("RoleController.updateRole--" + e.getMessage());
+			logger.error("RoleController.updateRole--" + e.getMessage(), e);
 		}
 		if (success) {
 			resultDto = new ResultDto("更新成功", success, CommonConstant.UPDATE_SUCCESS);
@@ -201,7 +201,7 @@ public class RoleController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("删除失败", success, CommonConstant.DELETE_ERROR);
 			e.printStackTrace();
-			logger.error("RoleController.deleteRole--" + e.getMessage());
+			logger.error("RoleController.deleteRole--" + e.getMessage(), e);
 		}
 		if (success) {
 			resultDto = new ResultDto("删除成功", success, CommonConstant.DELETE_ERROR);
@@ -212,7 +212,7 @@ public class RoleController {
 	}
 
 	/**
-	 * 校验参数
+	 * 校验参数(暂时不需要)
 	 * 
 	 * @param paramName
 	 * @param value
@@ -243,7 +243,7 @@ public class RoleController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("分配任务失败" + e.getMessage(), success, CommonConstant.DELETE_ERROR);
 			e.printStackTrace();
-			logger.error("RoleController.deleteRole--" + e.getMessage());
+			logger.error("RoleController.deleteRole--" + e.getMessage(), e);
 		}
 		if (success) {
 			resultDto = new ResultDto("分配任务成功", success, CommonConstant.DELETE_ERROR);
@@ -261,11 +261,6 @@ public class RoleController {
 	 */
 	@RequestMapping("/granttask/{roleId}.html")
 	public String goGrantTaskPage(@PathVariable Integer roleId, Model model) {
-		/*
-		 * List<RoleTaskRelKeyDto> tasks =
-		 * roleTaskRelService.getTasksByRoleId(roleId);
-		 * model.addAttribute("tasks", arg1)
-		 */
 		return "role/grantTask";
 
 	}
@@ -284,7 +279,7 @@ public class RoleController {
 			tasks = roleTaskRelService.getTasksByRoleId(roleId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("RoleController.deleteRole--" + e.getMessage());
+			logger.error("RoleController.deleteRole--" + e.getMessage(), e);
 		}
 
 		return tasks;

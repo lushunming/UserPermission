@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
+ * 异常出错页面
  * 
  * @author lusm
  * @date 2016年3月26日
@@ -24,6 +25,7 @@ public class ExceptionController {
 
 	/**
 	 * 500处理
+	 * 
 	 * @return 返回500页面
 	 */
 	@RequestMapping("/500")

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * index 首页，将会自动转到登录界面
+ * index 首页，可以跳转到注册或者登陆
  * 
  * @author lusm
  * @date 2016年3月26日
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class IndexController {
 	/**
-	 * 返回首页即登录页面
+	 * 主页面
 	 * 
 	 * @return 登录页面
 	 */
@@ -23,7 +23,5 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
-
-	
 
 }

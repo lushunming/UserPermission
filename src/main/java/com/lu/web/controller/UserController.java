@@ -88,9 +88,8 @@ public class UserController {
 		try {
 			dto = userService.selectUserById(id);
 		} catch (Exception e) {
-
 			e.printStackTrace();
-			logger.error("UserController.gotoUpdate--" + e.getMessage());
+			logger.error("UserController.gotoUpdate--" + e.getMessage(), e);
 		}
 		model.addAttribute("user", dto);
 		return "user/userUpdateForm";
@@ -110,7 +109,7 @@ public class UserController {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			logger.error("UserController.gotoView--" + e.getMessage());
+			logger.error("UserController.gotoView--" + e.getMessage(), e);
 		}
 		model.addAttribute("user", dto);
 		return "user/userViewForm";
@@ -124,11 +123,7 @@ public class UserController {
 	 */
 	@RequestMapping("/grantrole/{userId}.html")
 	public String goGrantTaskPage(@PathVariable Integer userId, Model model) {
-		/*
-		 * List<RoleTaskRelKeyDto> tasks =
-		 * roleTaskRelService.getTasksByRoleId(roleId);
-		 * model.addAttribute("tasks", arg1)
-		 */
+
 		return "user/grantRole";
 
 	}
@@ -151,7 +146,7 @@ public class UserController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("分配角色失败" + e.getMessage(), success, CommonConstant.DELETE_ERROR);
 			e.printStackTrace();
-			logger.error("UserController.grantRole--" + e.getMessage());
+			logger.error("UserController.grantRole--" + e.getMessage(),e);
 		}
 		if (success) {
 			resultDto = new ResultDto("分配角色成功", success, CommonConstant.DELETE_ERROR);
@@ -232,7 +227,7 @@ public class UserController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("保存失败" + e.getMessage(), success, CommonConstant.SAVE_ERROR);
 			e.printStackTrace();
-			logger.error("UserController.saveUser--" + e.getMessage());
+			logger.error("UserController.saveUser--" + e.getMessage(),e);
 		}
 		if (success) {
 			resultDto = new ResultDto("保存成功", success, CommonConstant.SAVE_SUCCESS);
@@ -260,7 +255,7 @@ public class UserController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("更新失败" + e.getMessage(), success, CommonConstant.UPDATE_ERROR);
 			e.printStackTrace();
-			logger.error("UserController.updateUser--" + e.getMessage());
+			logger.error("UserController.updateUser--" + e.getMessage(),e);
 		}
 		if (success) {
 			resultDto = new ResultDto("更新成功", success, CommonConstant.UPDATE_SUCCESS);
@@ -287,7 +282,7 @@ public class UserController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("删除失败", success, CommonConstant.DELETE_ERROR);
 			e.printStackTrace();
-			logger.error("UserController.deleteUser--" + e.getMessage());
+			logger.error("UserController.deleteUser--" + e.getMessage(),e);
 		}
 		if (success) {
 			resultDto = new ResultDto("删除成功", success, CommonConstant.DELETE_ERROR);
@@ -311,7 +306,7 @@ public class UserController {
 			roles = userRoleRelService.getRolesByUserId(userId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("UserController.getRolesByUserId--" + e.getMessage());
+			logger.error("UserController.getRolesByUserId--" + e.getMessage(),e);
 		}
 
 		return roles;
@@ -343,7 +338,6 @@ public class UserController {
 	@RequestMapping("/checkuser/{id}")
 	@ResponseBody
 	public ResultDto checkUser(@PathVariable Integer id, Integer status) {
-		UserDto userDto = new UserDto();
 		ResultDto dto = null;
 		boolean success = false;
 		try {

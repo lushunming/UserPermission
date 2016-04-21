@@ -98,7 +98,7 @@ public class AccountController {
 			return new ResultDto("账号不存在", false, CommonConstant.LOGIN_FAILED);
 		} catch (DisabledAccountException e) {
 			logger.error("账号未启用：{}", e);
-			return new ResultDto("账号未启用", false, CommonConstant.LOGIN_FAILED);
+			return new ResultDto("账号未启用,请联系管理员", false, CommonConstant.LOGIN_FAILED);
 		} catch (IncorrectCredentialsException e) {
 			logger.error("密码错误：{}", e);
 			return new ResultDto("密码错误", false, CommonConstant.LOGIN_FAILED);
@@ -166,7 +166,7 @@ public class AccountController {
 		try {
 			dto.setStatus(CommonConstant.STATUS_UNCHECK);
 			String[] roles = dto.getRoleIds().split(",");
-			userService.register(dto,roles);
+			userService.register(dto, roles);
 			success = true;
 			resultDto = new ResultDto("注册成功", success, CommonConstant.SAVE_SUCCESS);
 		} catch (Exception e) {
