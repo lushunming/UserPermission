@@ -5,16 +5,20 @@
 
 */
 
-INSERT INTO "t_user" (loginname,password,status )VALUES('admin',111111,1);
+INSERT INTO "t_user" (loginname,password,status)VALUES('admin',111111,1);
 
 
 /*
 插入任务表
 */
 
-INSERT INTO "t_task" ( name, url, description) VALUES ('任务管理', '/task/list.html', '任务管理');
-INSERT INTO "t_task" ( name, url, description) VALUES ('角色管理', '/role/list.html', '角色管理');
-INSERT INTO "t_task" ( name, url, description) VALUES ('用户管理', '/user/list.html', '用户管理');
+
+
+INSERT INTO "t_task"  ( name, url, description) VALUES ('任务管理', '/task/list.html', '任务管理');
+INSERT INTO "t_task"  ( name, url, description) VALUES ('角色管理', '/role/list.html', '角色管理');
+INSERT INTO "t_task"  ( name, url, description) VALUES ('用户管理', '/user/list.html', '用户管理（超级管理员使用）');
+INSERT INTO "t_task"  ( name, url, description) VALUES ('用户管理', '/user/manage.html', '用户管理（给不是超级管理的使用）');
+
 
 /*
 插入角色表
@@ -43,3 +47,4 @@ INSERT INTO "t_user_role_rel" (user_id,role_id) VALUES (1,1);
 INSERT INTO "t_role_task_rel" (role_id,task_id) VALUES (1,1);
 INSERT INTO "t_role_task_rel" (role_id,task_id) VALUES (1,2);
 INSERT INTO "t_role_task_rel" (role_id,task_id) VALUES (1,3);
+INSERT INTO "t_role_task_rel" (role_id,task_id) VALUES (1,4);

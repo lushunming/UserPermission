@@ -3,16 +3,12 @@
 /* Created on:     2016/4/10 11:02:12                           */
 /*==============================================================*/
 
+drop table t_role_task_rel ;
+drop table t_user_role_rel ;
+drop table t_role ;
+drop table t_task ;
+drop table t_user ;
 
-drop table t_role if exists;
-
-drop table t_role_task_rel if exists;
-
-drop table t_task if exists;
-
-drop table t_user if exists;
-
-drop table t_user_role_rel if exists;
 
 /*==============================================================*/
 /* Table: t_role                                                */
