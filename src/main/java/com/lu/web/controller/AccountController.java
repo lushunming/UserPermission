@@ -165,7 +165,8 @@ public class AccountController {
 
 		try {
 			dto.setStatus(CommonConstant.STATUS_UNCHECK);
-			userService.insertUser(dto);
+			String[] roles = dto.getRoleIds().split(",");
+			userService.register(dto,roles);
 			success = true;
 			resultDto = new ResultDto("注册成功", success, CommonConstant.SAVE_SUCCESS);
 		} catch (Exception e) {

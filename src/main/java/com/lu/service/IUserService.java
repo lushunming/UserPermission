@@ -19,7 +19,7 @@ public interface IUserService {
 	 * 
 	 * @param dto 用户dto
 	 * @return 返回插入数，1 成功 0 失败
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public Integer insertUser(UserDto dto) throws Exception;
 
@@ -28,7 +28,7 @@ public interface IUserService {
 	 * 
 	 * @param userName 用户名
 	 * @return 返回user对象
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public User findUserByUserName(String userName) throws Exception;
 
@@ -36,7 +36,7 @@ public interface IUserService {
 	 * 根据id删除用户
 	 * 
 	 * @param id
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void deleteUser(Integer id) throws Exception;
 
@@ -44,7 +44,7 @@ public interface IUserService {
 	 * 更新用户信息
 	 * 
 	 * @param dto
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void updateUser(UserDto dto) throws Exception;
 
@@ -53,7 +53,7 @@ public interface IUserService {
 	 * 
 	 * @param dto
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public boolean saveUser(UserDto dto) throws Exception;
 
@@ -65,7 +65,7 @@ public interface IUserService {
 	 * @param roles 当前人拥有的角色
 	 * @param id 主键id
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public List<User> findListLowLevel(int page, int rows, List<Role> roles, Integer id) throws Exception;
 
@@ -75,7 +75,7 @@ public interface IUserService {
 	 * @param page 第几页
 	 * @param rows 每一页的数目
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public List<User> findList(int page, int rows) throws Exception;
 
@@ -83,7 +83,7 @@ public interface IUserService {
 	 * 
 	 * @param id
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public UserDto selectUserById(Integer id) throws Exception;
 
@@ -92,7 +92,7 @@ public interface IUserService {
 	 * 
 	 * @param id 用户id
 	 * @param status 用户状态
-	 * @throws Exception 
+	 * @throws Exception
 	 * 
 	 */
 	public void vetUser(Integer id, Integer status) throws Exception;
@@ -102,9 +102,16 @@ public interface IUserService {
 	 * 
 	 * @param id
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public List<Role> findRolesByUserId(Integer id) throws Exception;
 
+	/**
+	 * 注册用户
+	 * @param dto 用户信息dto
+	 * @param roles 用户的角色ids
+	 * @throws Exception 
+	 */
+	public void register(UserDto dto, String[] roles) throws Exception;
 
 }

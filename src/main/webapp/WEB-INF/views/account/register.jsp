@@ -23,6 +23,12 @@
 				<label for="password">确认密码</label>
 				<input type="password" name="confirm_password" class="form-control" placeholder="请重新输入密码">
 			</div>
+			<div class="form-group">
+				<label for="roleIds">选择角色</label>
+				<select multiple class="form-control" name="roleIds" id="roles">
+					
+				</select>
+			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
 		</form>
 	</div>
@@ -89,6 +95,13 @@
 							equalTo : "两次密码输入不一致"
 						}
 					}
+				});
+				Util.callAjax("/role/queryalllist", {}, function(data) {
+					var _roles = $("#roles");
+					$.each(data, function(index, role) {
+						_roles.append('<option value="'+role.id+'">'+role.name+'</option>');
+					});
+
 				});
 			}
 

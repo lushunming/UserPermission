@@ -78,9 +78,8 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/resources/** = anon <!-- 不需要认证 -->
-				/account/login.html = anon
-				/account/register.html = anon
-				/account/login = anon
+				/account/** = anon <!-- 账号下的都不需要验证 -->
+				/role/queryalllist = anon
 				/** = authc <!-- 需要认证 -->
 				<!-- /** = anon -->
 			</value>

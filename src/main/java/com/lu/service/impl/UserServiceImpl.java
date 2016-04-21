@@ -20,6 +20,7 @@ import com.lu.model.User;
 import com.lu.model.UserExample;
 import com.lu.model.UserExample.Criteria;
 import com.lu.persistence.dao.UserMapper;
+import com.lu.service.IUserRoleRelService;
 import com.lu.service.IUserService;
 
 @Service(value = "userService")
@@ -27,6 +28,9 @@ public class UserServiceImpl implements IUserService {
 	private Logger logger = Logger.getLogger(UserServiceImpl.class);
 	/** 用户mapper接口 */
 	private @Resource UserMapper userMapper;
+	/** 用户角色关系 */
+	@Resource
+	private IUserRoleRelService userRoleRelService;
 
 	@Override
 	public Integer insertUser(UserDto dto) throws Exception {
@@ -217,4 +221,10 @@ public class UserServiceImpl implements IUserService {
 		return users;
 	}
 
+	@Override
+	public void register(UserDto dto, String[] roles) throws Exception {
+		// 保存用户表
+		this.insertUser(dto);
+		userRoleRelService.grantRole(dto.getId(), roles);
+	}
 }
