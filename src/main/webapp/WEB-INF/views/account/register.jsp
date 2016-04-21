@@ -26,7 +26,7 @@
 			<div class="form-group">
 				<label for="roleIds">选择角色</label>
 				<select multiple class="form-control" name="roleIds" id="roles">
-					
+
 				</select>
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
@@ -72,7 +72,10 @@
 						$(form).ajaxSubmit(option);
 					},
 					rules : {
-						loginname : "required",
+						loginname : {
+							required : true,
+							remote : "/user/check/loginname"
+						},
 						password : {
 							required : true,
 							minlength : 6
@@ -84,10 +87,14 @@
 						}
 					},
 					messages : {
-						loginname : "用户名不能为空",
+						loginname : {
+							required : "用户名不能为空",
+							remote : "该用户名已经存在,请重新选择一个"
+						},
 						password : {
 							required : "请输入密码",
-							minlength : "密码长度不能小于6 个字母"
+							minlength : "密码长度不能小于6 个字母",
+
 						},
 						confirm_password : {
 							required : "请输入密码",
@@ -99,7 +106,7 @@
 				Util.callAjax("/role/queryalllist", {}, function(data) {
 					var _roles = $("#roles");
 					$.each(data, function(index, role) {
-						_roles.append('<option value="'+role.id+'">'+role.name+'</option>');
+						_roles.append('<option value="'+role.id+'">' + role.name + '</option>');
 					});
 
 				});

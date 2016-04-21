@@ -89,7 +89,7 @@ public class UserServiceImpl implements IUserService {
 			logAndThrowError(methodName, "这条数据的id为空");
 		}
 		// TODO 校验用户的用户名
-		if (checkIfExists(dto.getLoginname(), dto.getId())) {
+		if (isLoginNameExist(dto.getLoginname(), dto.getId()+"")) {
 			logAndThrowError(methodName, "该用户名已存在，请重选一个");
 
 		}
@@ -102,18 +102,6 @@ public class UserServiceImpl implements IUserService {
 		user.setStatus(dto.getStatus());
 		user.setPassword(dto.getPassword());
 		userMapper.updateByPrimaryKey(user);
-	}
-
-	/**
-	 * 根据用户和id判断改用户是否存在
-	 * 
-	 * @param loginname 用户名
-	 * @param id
-	 * @return
-	 */
-	private boolean checkIfExists(String loginname, Integer id) throws Exception {
-		// TODO
-		return false;
 	}
 
 	@Override
@@ -132,7 +120,7 @@ public class UserServiceImpl implements IUserService {
 			logAndThrowError(methodName, "用户状态不能为空");
 		}
 		// TODO 校验用户的用户名
-		if (checkIfExists(dto.getLoginname(), null)) {
+		if (isLoginNameExist(dto.getLoginname(), null)) {
 			logAndThrowError(methodName, "该用户名已存在，请重选一个");
 
 		}
@@ -226,5 +214,20 @@ public class UserServiceImpl implements IUserService {
 		// 保存用户表
 		this.insertUser(dto);
 		userRoleRelService.grantRole(dto.getId(), roles);
+	}
+
+	@Override
+	public boolean isLoginNameExist(String loginName, String id) {
+		String methodName = "isLoginNameExist";
+		UserExample example = new UserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andLoginnameEqualTo(loginName);
+		if (StringUtils.isEmpty(loginName)) {
+			logAndThrowError(methodName, "用户名不能为空");
+		}
+		if (StringUtils.isNotEmpty(id)) { // 新增
+			criteria.andIdNotEqualTo(Integer.valueOf(id));
+		}
+		return userMapper.countByExample(example) > 0;
 	}
 }

@@ -63,14 +63,13 @@
 	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**" />
 	<mvc:resources location="/WEB-INF/resources/image/favicon.ico"
 		mapping="/favicon.ico" />
-
 	<!-- shiro 相关的配置 -->
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- 安全管理器 -->
 		<property name="securityManager" ref="securityManager" />
 		<!-- 默认的登陆访问url -->
-		<property name="loginUrl" value="/account/login.html" />
+		<property name="loginUrl" value="/index.html" />
 		<!-- 登陆成功后跳转的url -->
 		<property name="successUrl" value="/main/main.html" />
 		<!-- 没有权限跳转的url -->
@@ -79,7 +78,10 @@
 			<value>
 				/resources/** = anon <!-- 不需要认证 -->
 				/account/** = anon <!-- 账号下的都不需要验证 -->
+				/user/check/**=anon
 				/role/queryalllist = anon
+				/index.html=anon
+				/account/password/change.html=authc
 				/** = authc <!-- 需要认证 -->
 				<!-- /** = anon -->
 			</value>

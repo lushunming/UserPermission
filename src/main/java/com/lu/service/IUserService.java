@@ -108,10 +108,19 @@ public interface IUserService {
 
 	/**
 	 * 注册用户
+	 * 
 	 * @param dto 用户信息dto
 	 * @param roles 用户的角色ids
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void register(UserDto dto, String[] roles) throws Exception;
+
+	/**
+	 * 校验用户名是否存在
+	 * 
+	 * @param loginName 用户名
+	 * @param id 用户id
+	 */
+	public boolean isLoginNameExist(String loginName, String id);
 
 }

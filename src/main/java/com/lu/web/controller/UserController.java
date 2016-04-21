@@ -325,11 +325,12 @@ public class UserController {
 	 * @param value
 	 * @return
 	 */
-	@RequestMapping("/check/{param}")
+	@RequestMapping("/check/{paramName}")
 	@ResponseBody
-	public boolean checkForm(@PathVariable String paramName) {
-		// TODO
-		return true;
+	public boolean checkForm(@PathVariable String paramName, HttpServletRequest request) {
+		String loginName = request.getParameter(paramName);
+		String id = request.getParameter("id");
+		return !userService.isLoginNameExist(loginName.trim(), id);
 	}
 
 	/**

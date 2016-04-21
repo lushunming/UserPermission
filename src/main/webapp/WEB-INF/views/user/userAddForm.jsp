@@ -82,10 +82,16 @@
 							return false;
 						},
 						rules : {
-							loginname : "required",
+							loginname : {
+								required : true,
+								remote : "/user/check/loginname"
+							}
 						},
 						messages : {
-							loginname : "用户名不能为空",
+							loginname : {
+								required : "用户名不能为空",
+								remote : "该用户名已经存在,请重新选择一个"
+							},
 						}
 					});
 				}

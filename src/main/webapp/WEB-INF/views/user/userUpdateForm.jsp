@@ -10,6 +10,8 @@
 	<div class="container-fluid">
 		<form class="row form-horizontal margin" id="userUpdateForm">
 			<input type="hidden" name="id" value="${user.id}">
+			<input type="hidden" name="password" value="${user.password}">
+			<input type="hidden" name="status" value="${user.status}">
 			<div class="form-group">
 				<label class="col-xs-3  control-label text-center">
 					用户名：
@@ -72,10 +74,16 @@
 							$(form).ajaxSubmit(option);
 						},
 						rules : {
-							loginname : "required",
+							loginname : {
+								required : true,
+								remote : "/user/check/loginname"
+							}
 						},
 						messages : {
-							loginname : "用户名不能为空",
+							loginname : {
+								required : "用户名不能为空",
+								remote : "该用户名已经存在,请重新选择一个"
+							}
 						}
 					});
 				}

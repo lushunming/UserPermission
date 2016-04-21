@@ -19,7 +19,7 @@ public class IndexController {
 	 * 
 	 * @return 登录页面
 	 */
-	@RequestMapping("")
+	@RequestMapping("index.html")
 	public String index() {
 		return "index";
 	}

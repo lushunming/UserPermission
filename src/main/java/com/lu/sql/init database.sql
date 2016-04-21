@@ -47,4 +47,3 @@ INSERT INTO "t_user_role_rel" (user_id,role_id) VALUES (1,1);
 INSERT INTO "t_role_task_rel" (role_id,task_id) VALUES (1,1);
 INSERT INTO "t_role_task_rel" (role_id,task_id) VALUES (1,2);
 INSERT INTO "t_role_task_rel" (role_id,task_id) VALUES (1,3);
-INSERT INTO "t_role_task_rel" (role_id,task_id) VALUES (1,4);
