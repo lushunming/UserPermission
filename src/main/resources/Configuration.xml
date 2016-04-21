@@ -2,7 +2,13 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+	<settings>
 	
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="logPrefix" value="---mybatis----" />
+	</settings>
 
 	<mappers>
 		<mapper resource="com/lu/persistence/mapper/RoleMapper.xml" />
@@ -11,6 +17,5 @@
 		<mapper resource="com/lu/persistence/mapper/UserMapper.xml" />
 		<mapper resource="com/lu/persistence/mapper/UserRoleRelMapper.xml" />
 	</mappers>
-
 
 </configuration>

@@ -162,7 +162,7 @@
 		</if>
 	</select>
 	<select id="getTasksByRoleId" parameterType="java.lang.Integer"
-		resultType="com.lu.dto.UserRoleRelKeyDto">
+		resultType="com.lu.dto.RoleTaskRelKeyDto">
 
 	SELECT
 	rtr.task_id taskId,

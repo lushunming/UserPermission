@@ -57,7 +57,10 @@
 					t.loadSuccess = function(data) {
 						var url = "/role/taskList/" + roleId;
 						Util.callAjax(url, {}, function(rows) {
+							console.log("已有的");
 							console.log(rows);
+							console.log("全部");
+							console.log(data.rows);
 							$.each(data.rows, function(index, ele) {
 								$.each(rows, function(index1, row) {
 
