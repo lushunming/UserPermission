@@ -146,7 +146,7 @@ public class UserController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("分配角色失败" + e.getMessage(), success, CommonConstant.DELETE_ERROR);
 			e.printStackTrace();
-			logger.error("UserController.grantRole--" + e.getMessage(),e);
+			logger.error("UserController.grantRole--" + e.getMessage(), e);
 		}
 		if (success) {
 			resultDto = new ResultDto("分配角色成功", success, CommonConstant.DELETE_ERROR);
@@ -227,7 +227,7 @@ public class UserController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("保存失败" + e.getMessage(), success, CommonConstant.SAVE_ERROR);
 			e.printStackTrace();
-			logger.error("UserController.saveUser--" + e.getMessage(),e);
+			logger.error("UserController.saveUser--" + e.getMessage(), e);
 		}
 		if (success) {
 			resultDto = new ResultDto("保存成功", success, CommonConstant.SAVE_SUCCESS);
@@ -255,7 +255,7 @@ public class UserController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("更新失败" + e.getMessage(), success, CommonConstant.UPDATE_ERROR);
 			e.printStackTrace();
-			logger.error("UserController.updateUser--" + e.getMessage(),e);
+			logger.error("UserController.updateUser--" + e.getMessage(), e);
 		}
 		if (success) {
 			resultDto = new ResultDto("更新成功", success, CommonConstant.UPDATE_SUCCESS);
@@ -282,7 +282,7 @@ public class UserController {
 		} catch (Exception e) {
 			resultDto = new ResultDto("删除失败", success, CommonConstant.DELETE_ERROR);
 			e.printStackTrace();
-			logger.error("UserController.deleteUser--" + e.getMessage(),e);
+			logger.error("UserController.deleteUser--" + e.getMessage(), e);
 		}
 		if (success) {
 			resultDto = new ResultDto("删除成功", success, CommonConstant.DELETE_ERROR);
@@ -306,7 +306,7 @@ public class UserController {
 			roles = userRoleRelService.getRolesByUserId(userId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("UserController.getRolesByUserId--" + e.getMessage(),e);
+			logger.error("UserController.getRolesByUserId--" + e.getMessage(), e);
 		}
 
 		return roles;
@@ -325,7 +325,14 @@ public class UserController {
 	public boolean checkForm(@PathVariable String paramName, HttpServletRequest request) {
 		String loginName = request.getParameter(paramName);
 		String id = request.getParameter("id");
-		return !userService.isLoginNameExist(loginName.trim(), id);
+		boolean success = false;
+		try {
+			success = !userService.isLoginNameExist(loginName.trim(), id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
+		return success;
 	}
 
 	/**

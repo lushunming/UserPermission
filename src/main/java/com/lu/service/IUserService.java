@@ -120,7 +120,8 @@ public interface IUserService {
 	 * 
 	 * @param loginName 用户名
 	 * @param id 用户id
+	 * @throws Exception 
 	 */
-	public boolean isLoginNameExist(String loginName, String id);
+	public boolean isLoginNameExist(String loginName, String id) throws Exception;
 
 }

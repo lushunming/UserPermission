@@ -17,21 +17,24 @@ public interface IUserRoleRelService {
 	 * 
 	 * @param userId 用户id
 	 * @return 返回的是角色列表
+	 * @throws Exception 
 	 */
-	public List<Integer> findRolesByUserId(Integer userId);
+	public List<Integer> findRolesByUserId(Integer userId) throws Exception;
 
 	/**
 	 * 给用户分配角色
 	 * 
 	 * @param userId 用户id
 	 * @param roleIds 角色ids
+	 * @throws Exception 
 	 */
-	public void grantRole(Integer userId, String[] roleIds);
+	public void grantRole(Integer userId, String[] roleIds) throws Exception;
 
 	/**
 	 * 根据用户的id查找已经拥有的角色
 	 * @param userId
 	 * @return
+	 * @throws Exception 
 	 */
-	public List<UserRoleRelKeyDto> getRolesByUserId(Integer userId);
+	public List<UserRoleRelKeyDto> getRolesByUserId(Integer userId) throws Exception;
 }

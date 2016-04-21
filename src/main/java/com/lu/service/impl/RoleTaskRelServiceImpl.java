@@ -27,6 +27,7 @@ import com.lu.service.IRoleTaskRelService;
 @Service("roleTaskRelService")
 public class RoleTaskRelServiceImpl implements IRoleTaskRelService {
 	private Logger logger = Logger.getLogger(RoleServiceImpl.class);
+	/** 角色任务mapper */
 	@Resource
 	private RoleTaskRelMapper roleTaskRelMapper;
 
@@ -37,7 +38,7 @@ public class RoleTaskRelServiceImpl implements IRoleTaskRelService {
 	 * @param msg 错误信息
 	 */
 	private void logAndThrowError(String methodName, String msg) {
-		logger.error("UserServiceImpl." + methodName + msg);
+		logger.error("RoleTaskRelServiceImpl." + methodName + msg);
 		throw new MyException(msg);
 	}
 
@@ -61,7 +62,6 @@ public class RoleTaskRelServiceImpl implements IRoleTaskRelService {
 		if (roleId == null) {
 			logAndThrowError(methodName, "roleId 不能为空");
 		}
-
 		// 首先删除该角色拥有的关系
 		RoleTaskRelExample example = new RoleTaskRelExample();
 		Criteria criteria = example.createCriteria();
@@ -81,10 +81,9 @@ public class RoleTaskRelServiceImpl implements IRoleTaskRelService {
 
 	@Override
 	public List<RoleTaskRelKeyDto> getTasksByRoleId(Integer roleId) throws Exception {
-
 		String methodName = "getTasksByRoleId";
 		if (roleId == null) {
-			logAndThrowError(methodName, "roleId 不能为空");
+			logAndThrowError(methodName, "roleId不能为空");
 		}
 		List<RoleTaskRelKeyDto> tasks = roleTaskRelMapper.getTasksByRoleId(roleId);
 		return tasks;

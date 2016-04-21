@@ -34,7 +34,7 @@ public class UserRoleRelServiceImpl implements IUserRoleRelService {
 		throw new MyException(msg);
 	}
 
-	public List<Integer> findRolesByUserId(Integer userId) {
+	public List<Integer> findRolesByUserId(Integer userId) throws Exception{
 		UserRoleRelExample example = new UserRoleRelExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -45,7 +45,7 @@ public class UserRoleRelServiceImpl implements IUserRoleRelService {
 	}
 
 	@Override
-	public void grantRole(Integer userId, String[] roleIds) {
+	public void grantRole(Integer userId, String[] roleIds) throws Exception {
 		String methodName = "grantRole";
 
 		if (userId == null) {
@@ -69,7 +69,7 @@ public class UserRoleRelServiceImpl implements IUserRoleRelService {
 	}
 
 	@Override
-	public List<UserRoleRelKeyDto> getRolesByUserId(Integer userId) {
+	public List<UserRoleRelKeyDto> getRolesByUserId(Integer userId) throws Exception {
 		String methodName = "getRolesByUserId";
 		if (userId == null) {
 			logAndThrowError(methodName, "userId 不能为空");

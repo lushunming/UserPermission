@@ -19,30 +19,34 @@ public interface IRoleService {
 	 * 
 	 * @param dto 角色dto
 	 * @return 返回插入数，1 成功 0 失败
+	 * @throws Exception 
 	 */
-	public Integer insertRole(RoleDto dto);
+	public Integer insertRole(RoleDto dto) throws Exception;
 
 	/**
 	 * 根据id删除角色
 	 * 
 	 * @param id
+	 * @throws Exception 
 	 */
-	public void deleteRole(Integer id);
+	public void deleteRole(Integer id) throws Exception;
 
 	/**
 	 * 更新角色信息
 	 * 
 	 * @param dto
+	 * @throws Exception 
 	 */
-	public void updateRole(RoleDto dto);
+	public void updateRole(RoleDto dto) throws Exception;
 
 	/**
 	 * 保存角色信息
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean saveRole(RoleDto dto);
+	public boolean saveRole(RoleDto dto) throws Exception;
 
 	/**
 	 * 查找角色列表
@@ -51,21 +55,24 @@ public interface IRoleService {
 	 * @param rows 每一页的数目
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
-	public List<Role> findList(int page, int rows);
+	public List<Role> findList(int page, int rows) throws Exception;
 
 	/**
 	 * 查找角色列表(不分页)
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
-	public List<Role> findListWithoutPage();
+	public List<Role> findListWithoutPage() throws Exception;
 
 	/**
 	 * 
 	 * @param id
 	 * @return
+	 * @throws Exception 
 	 */
-	public RoleDto selectRoleById(Integer id);
+	public RoleDto selectRoleById(Integer id) throws Exception;
 
 }

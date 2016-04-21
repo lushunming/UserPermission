@@ -110,7 +110,13 @@ public class RoleController {
 	@RequestMapping("/querylist")
 	@ResponseBody
 	public Map<String, Object> queryRoleList(int page, int rows) {
-		List<Role> roles = roleService.findList(page, rows);
+		List<Role> roles = null;
+		try {
+			roles = roleService.findList(page, rows);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
 		PageInfo<Role> rolePage = new PageInfo<Role>(roles);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("total", rolePage.getTotal());
@@ -126,7 +132,13 @@ public class RoleController {
 	@RequestMapping("/queryalllist")
 	@ResponseBody
 	public List<Role> findListWithoutPage() {
-		List<Role> roles = roleService.findListWithoutPage();
+		List<Role> roles = null;
+		try {
+			roles = roleService.findListWithoutPage();
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
 		return roles;
 	}
 

@@ -19,7 +19,9 @@ import com.lu.model.Role;
 import com.lu.model.User;
 import com.lu.model.UserExample;
 import com.lu.model.UserExample.Criteria;
+import com.lu.model.UserRoleRelExample;
 import com.lu.persistence.dao.UserMapper;
+import com.lu.persistence.dao.UserRoleRelMapper;
 import com.lu.service.IUserRoleRelService;
 import com.lu.service.IUserService;
 
@@ -27,10 +29,14 @@ import com.lu.service.IUserService;
 public class UserServiceImpl implements IUserService {
 	private Logger logger = Logger.getLogger(UserServiceImpl.class);
 	/** 用户mapper接口 */
-	private @Resource UserMapper userMapper;
+	@Resource
+	private UserMapper userMapper;
 	/** 用户角色关系 */
 	@Resource
 	private IUserRoleRelService userRoleRelService;
+	/** 用户角色mapper */
+	@Resource
+	private UserRoleRelMapper userRoleRelMapper;
 
 	@Override
 	public Integer insertUser(UserDto dto) throws Exception {
@@ -88,8 +94,7 @@ public class UserServiceImpl implements IUserService {
 		if (null == dto.getId()) {
 			logAndThrowError(methodName, "这条数据的id为空");
 		}
-		// TODO 校验用户的用户名
-		if (isLoginNameExist(dto.getLoginname(), dto.getId()+"")) {
+		if (isLoginNameExist(dto.getLoginname(), dto.getId() + "")) {
 			logAndThrowError(methodName, "该用户名已存在，请重选一个");
 
 		}
@@ -119,7 +124,6 @@ public class UserServiceImpl implements IUserService {
 		if (null == dto.getStatus()) {
 			logAndThrowError(methodName, "用户状态不能为空");
 		}
-		// TODO 校验用户的用户名
 		if (isLoginNameExist(dto.getLoginname(), null)) {
 			logAndThrowError(methodName, "该用户名已存在，请重选一个");
 
@@ -188,9 +192,19 @@ public class UserServiceImpl implements IUserService {
 	 * @param id 用户id
 	 * @return 返回结果
 	 */
-	private boolean canBeDelete(Integer id) {
-		// TODO Auto-generated method stub
-		return true;
+	private boolean canBeDelete(Integer id) throws Exception {
+		String methodName = "canBeDelete";
+		if (id == null) {
+			logAndThrowError(methodName, "id不能为空");
+		}
+		UserRoleRelExample example = new UserRoleRelExample();
+		com.lu.model.UserRoleRelExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(id);
+		int count = userRoleRelMapper.countByExample(example);
+		if (count > 0) {
+			logAndThrowError(methodName, "该角色已经被分配了角色");
+		}
+		return count <= 0;
 	}
 
 	@Override
@@ -217,7 +231,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public boolean isLoginNameExist(String loginName, String id) {
+	public boolean isLoginNameExist(String loginName, String id) throws Exception{
 		String methodName = "isLoginNameExist";
 		UserExample example = new UserExample();
 		Criteria criteria = example.createCriteria();

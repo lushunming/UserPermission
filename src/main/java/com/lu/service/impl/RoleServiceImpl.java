@@ -14,7 +14,12 @@ import com.lu.common.MyException;
 import com.lu.dto.RoleDto;
 import com.lu.model.Role;
 import com.lu.model.RoleExample;
+import com.lu.model.RoleTaskRelExample;
+import com.lu.model.UserRoleRelExample;
+import com.lu.model.UserRoleRelExample.Criteria;
 import com.lu.persistence.dao.RoleMapper;
+import com.lu.persistence.dao.RoleTaskRelMapper;
+import com.lu.persistence.dao.UserRoleRelMapper;
 import com.lu.service.IRoleService;
 
 @Service(value = "roleService")
@@ -22,6 +27,10 @@ public class RoleServiceImpl implements IRoleService {
 	private Logger logger = Logger.getLogger(RoleServiceImpl.class);
 	/** 角色mapper接口 */
 	private @Resource RoleMapper roleMapper;
+	/** 角色 任务mapper接口 */
+	private @Resource RoleTaskRelMapper roleTaskRelMapper;
+	/** 用户 角色 mapper接口 */
+	private @Resource UserRoleRelMapper userRoleRelMapper;
 
 	/**
 	 * 记log和跑出异常
@@ -30,12 +39,12 @@ public class RoleServiceImpl implements IRoleService {
 	 * @param msg 错误信息
 	 */
 	private void logAndThrowError(String methodName, String msg) {
-		logger.error("UserServiceImpl." + methodName + msg);
+		logger.error("RoleServiceImpl." + methodName + msg);
 		throw new MyException(msg);
 	}
 
 	@Override
-	public Integer insertRole(RoleDto dto) {
+	public Integer insertRole(RoleDto dto) throws Exception {
 		String methodName = "deleteRole";
 		if (dto == null) {
 			logAndThrowError(methodName, "dto不能为空");
@@ -51,7 +60,7 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public void deleteRole(Integer id) {
+	public void deleteRole(Integer id) throws Exception {
 		String methodName = "deleteRole";
 		if (id == null) {
 			logAndThrowError(methodName, "id不能为空");
@@ -69,12 +78,26 @@ public class RoleServiceImpl implements IRoleService {
 	 * @return
 	 */
 	private boolean canBeDelete(Integer id) {
-		// TODO Auto-generated method stub
-		return true;
+		RoleTaskRelExample example = new RoleTaskRelExample();
+		com.lu.model.RoleTaskRelExample.Criteria criteria = example.createCriteria();
+		criteria.andRoleIdEqualTo(id);
+		int count1 = roleTaskRelMapper.countByExample(example);
+
+		UserRoleRelExample example2 = new UserRoleRelExample();
+		Criteria criteria2 = example2.createCriteria();
+		criteria2.andRoleIdEqualTo(id);
+		int count2 = userRoleRelMapper.countByExample(example2);
+		if (count1 > 0) {
+			logAndThrowError("canBeDelete", "该角色已被分配任务");
+		}
+		if (count2 > 0) {
+			logAndThrowError("canBeDelete", "该角色已被分配给用户");
+		}
+		return count1 <= 0 && count2 <= 0;
 	}
 
 	@Override
-	public void updateRole(RoleDto dto) {
+	public void updateRole(RoleDto dto) throws Exception {
 
 		String methodName = "updateRole";
 		if (dto == null) {
@@ -97,7 +120,7 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public boolean saveRole(RoleDto dto) {
+	public boolean saveRole(RoleDto dto) throws Exception {
 		String methodName = "saveRole";
 		if (dto == null) {
 			logAndThrowError(methodName, "dto不能为空");
@@ -115,7 +138,7 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public List<Role> findList(int page, int rows) {
+	public List<Role> findList(int page, int rows) throws Exception {
 		PageHelper.startPage(page, rows);
 		RoleExample example = new RoleExample();
 		List<Role> list = roleMapper.selectByExample(example);
@@ -123,7 +146,7 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public RoleDto selectRoleById(Integer id) {
+	public RoleDto selectRoleById(Integer id) throws Exception {
 		String methodName = "selectRoleById";
 		if (null == id) {
 			logAndThrowError(methodName, "id不能为空");
@@ -138,7 +161,7 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public List<Role> findListWithoutPage() {
+	public List<Role> findListWithoutPage() throws Exception {
 		RoleExample example = new RoleExample();
 		List<Role> list = roleMapper.selectByExample(example);
 		return list;
